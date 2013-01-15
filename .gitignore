@@ -1,0 +1,5 @@
+.sass-cache
+.livereload
+*.sublime-project
+*.sublime-workspace
+*en conflit*

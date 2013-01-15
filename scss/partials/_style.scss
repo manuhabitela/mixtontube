@@ -1,0 +1,41 @@
+* {
+	@include box-sizing(border-box);
+}
+
+body, button, select, input, textarea, label {
+	color: $fontColor;
+	font-family: $baseFontFamily;
+}
+
+h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
+	font-weight: normal;
+}
+
+.mobile-only { @extend .hidden; }
+
+#container {
+	margin: 0 auto;
+	width: 98%;
+	max-width: 960px;
+	text-align: center;
+}
+
+.son {
+	display: inline-block;
+	padding: 10px 15px;
+	border: 1px solid #bbb;
+	margin: 10px;
+	@include gradient-v(#fefefe, #E5DFDF);
+	box-shadow: inset 0 1px 0 0 white,0 1px 0 white;
+	border-radius: 5px;
+	color: #333;
+	text-shadow: 0 1px 0 white;
+	text-decoration: none;
+	&:hover, &:focus {
+		@include gradient-v(#f1f1f1, #ddd7d7);
+	}
+	&:active {
+		@include gradient-v(#dedede, #ddd7d7);
+		box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+	}
+}

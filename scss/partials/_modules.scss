@@ -1,0 +1,44 @@
+@mixin display-ib {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
+
+// Gradients
+@mixin gradient-h($start: #555, $end: #333) {
+	background-color: $end;
+	background-repeat: repeat-x;
+	@include background-image(linear-gradient(left, $start, $end));
+}
+
+@mixin gradient-v($start: #555, $end: #333) {
+	background-color: $end;
+	background-repeat: repeat-x;
+	@include background-image(linear-gradient($start, $end));
+}
+
+@mixin gradient-directional($start: #555, $end: #333, $deg: 45deg) {
+	background-color: $end;
+	background-repeat: repeat-x;
+	@include background-image(linear-gradient(left top, $start, $end));
+}
+
+@mixin gradient-box($primaryColor, $secondaryColor) {
+	@include gradient-v($primaryColor, $secondaryColor);
+	text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+	border-color: $secondaryColor $secondaryColor darken($secondaryColor, 15%);
+	border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) fadein(rgba(0,0,0,.1), 15%);
+}
+
+.rght { float: right;}
+.lft { float: left;}
+
+.b, b, strong { font-weight: normal; background: #fff59b; padding: 2px; }
+.i { font-style: italic; }
+.strike { text-decoration: line-through; }
+.xsmall { font-size: x-small;  } 
+.small { font-size: small;} 
+.medium { font-size: medium;}
+
+.error { color:red;}
+.ok { color: green;}
