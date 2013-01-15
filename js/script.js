@@ -7,5 +7,6 @@
 		});
 	} else {
 		$('.son[data-file]').addClass('hidden');
+		$('body').append("<p>A MARCHE PÔ</p>");
 	}
 })();
