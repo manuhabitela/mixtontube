@@ -14,29 +14,37 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 .mobile-only { @extend .hidden; }
 
 #container {
-	margin: 0 auto;
-	width: 98%;
-	max-width: 960px;
+	margin: 10px;
+}
+
+.sound-container {
+	float: left;
+	padding: 10px;
 	text-align: center;
+	position: relative;
+	&:after {
+		content: "+ \21E7";
+		position: absolute;
+		bottom: 10px;
+		right: 12px;
+		color: #bbb;
+	}
 }
 
 .btn-group {
-	position: relative;
-	display: inline-block;
 	white-space: nowrap;
-	vertical-align: middle;
-	margin: 10px;
 	height: 42px;
+	margin-bottom: 10px;
 	> %btn-base {
 		margin: 0;
 		position: relative;
 		height: 100%;
 		float: left;
-		&:first-child {
+		&:first-of-type {
 			border-top-right-radius: 0;
 			border-bottom-right-radius: 0;
 		}
-		&:last-child {
+		&:last-of-type {
 			border-top-left-radius: 0;
 			border-bottom-left-radius: 0;
 			border-left: 0;
@@ -49,7 +57,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	border: 1px solid #bbb;
 	margin: 10px;
 	box-shadow: inset 0 1px 0 0 white,0 1px 0 white;
-	border-radius: 5px;
+	border-radius: 3px;
 	color: #333;
 	text-shadow: 0 1px 0 white;
 	text-decoration: none;
@@ -59,7 +67,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 .btn {
 	@extend %btn-base;
 	@include background(linear-gradient(#fefefe, #e5dfdf));
-	&:hover, &:focus {
+	&:hover, &:focus, &.hover {
 		@include background(linear-gradient(#f1f1f1, #ddd7d7));
 	}
 	&:active, &.active {
@@ -72,7 +80,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	@extend %btn-base;
 	@include background(image-url($img) no-repeat center center,
 						linear-gradient(#fefefe, #e5dfdf));
-	&:hover, &:focus {
+	&:hover, &:focus, &.hover {
 		@include background(image-url($img) no-repeat center center,
 							linear-gradient(#f1f1f1, #ddd7d7));
 	}
@@ -87,7 +95,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 		$width: image-width($img);
 		$height: image-height($img);
 	}
-	&, &:hover, &:focus, &:active, &.active {
+	&, &:hover, &:focus, &.hover, &:active, &.active {
 		@if $width != false and $height != false {
 			@include background-size($width $height, auto);
 		}
@@ -100,7 +108,15 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	}
 }
 
-.icon-repeat {
+.repeat {
 	@include btn-icon("repeat.png", 16px);
 }
 
+.key {
+	text-align: center;
+	text-transform: capitalize;
+	border: 1px solid #eee;
+	&:disabled {
+		background: white;
+	}
+}
