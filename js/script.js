@@ -44,6 +44,6 @@
 		});
 	} else {
 		$buttons.addClass('hidden');
-		$container.append("<p>A MARCHE PÔ</p>");
+		$container.append("<p>A MARCHE PÔ</p><p>J'ai codé ça à l'arrache, essaie donc avec Chrome ou Firefox.</p>");
 	}
 })();
