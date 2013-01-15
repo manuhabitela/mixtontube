@@ -20,22 +20,87 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	text-align: center;
 }
 
-.son {
+.btn-group {
+	position: relative;
 	display: inline-block;
-	padding: 10px 15px;
+	white-space: nowrap;
+	vertical-align: middle;
+	margin: 10px;
+	height: 42px;
+	> %btn-base {
+		margin: 0;
+		position: relative;
+		height: 100%;
+		float: left;
+		&:first-child {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+		&:last-child {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+			border-left: 0;
+		}
+	}
+}
+
+%btn-base {
+	display: inline-block;
 	border: 1px solid #bbb;
 	margin: 10px;
-	@include gradient-v(#fefefe, #E5DFDF);
 	box-shadow: inset 0 1px 0 0 white,0 1px 0 white;
 	border-radius: 5px;
 	color: #333;
 	text-shadow: 0 1px 0 white;
 	text-decoration: none;
+	padding: 10px 15px;
+}
+
+.btn {
+	@extend %btn-base;
+	@include background(linear-gradient(#fefefe, #e5dfdf));
 	&:hover, &:focus {
-		@include gradient-v(#f1f1f1, #ddd7d7);
+		@include background(linear-gradient(#f1f1f1, #ddd7d7));
 	}
-	&:active {
-		@include gradient-v(#dedede, #ddd7d7);
+	&:active, &.active {
+		@include background(linear-gradient(#dedede, #ddd7d7));
 		box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
 	}
 }
+
+@mixin btn-icon($img, $width:false, $height:false) {
+	@extend %btn-base;
+	@include background(image-url($img) no-repeat center center,
+						linear-gradient(#fefefe, #e5dfdf));
+	&:hover, &:focus {
+		@include background(image-url($img) no-repeat center center,
+							linear-gradient(#f1f1f1, #ddd7d7));
+	}
+	&:active, &.active {
+		@include background(image-url($img) no-repeat center center,
+							linear-gradient(#dedede, #ddd7d7));
+		background-repeat: no-repeat;
+		box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+	}
+	background-repeat: no-repeat;
+	@if $width == false and $height == false {
+		$width: image-width($img);
+		$height: image-height($img);
+	}
+	&, &:hover, &:focus, &:active, &.active {
+		@if $width != false and $height != false {
+			@include background-size($width $height, auto);
+		}
+		@if $width != false and $height == false {
+			@include background-size($width auto, auto);
+		}
+		@if $height == false and $height != false {
+			@include background-size(auto $height, auto);
+		}
+	}
+}
+
+.icon-repeat {
+	@include btn-icon("repeat.png", 16px);
+}
+
