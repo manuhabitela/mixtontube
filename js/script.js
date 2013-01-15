@@ -1,7 +1,7 @@
 (function() {
 	if (Modernizr.audio) {
-		var audio = document.createElement('audio');
 		$('.son[data-file]').on('click', function(e) {
+			var audio = document.createElement('audio');
 			audio.src = $(this).attr('data-file');
 			audio.play();
 		});
