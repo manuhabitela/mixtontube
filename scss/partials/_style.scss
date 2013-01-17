@@ -22,6 +22,10 @@ body {
 	text-align: center;
 }
 
+.piano-wrapper {
+	color: #aaa;
+}
+
 /**
  * quelques trucs piochés du piano de Taufik Nurrohman http://hompimpaalaihumgambreng.blogspot.com/ - big up à sa famille */
 .piano {
@@ -61,6 +65,7 @@ $piano-key-width: 60px;
 	@include background(linear-gradient(-20deg,#333,black,#333));
 	border-radius: 0 0 2px 2px;
 	box-shadow: inset 0px -1px 2px rgba(255, 255, 255, 0.4),0 1px 3px rgba(0, 0, 0, 0.4);
+	color: black;
 	pointer-events: none;
 }
 
@@ -85,16 +90,16 @@ $piano-key-width: 60px;
 			border-color: transparent rgba(0, 0, 0, 0.1) transparent transparent;
 		}
 	}
-	&.pressed-hard .repeat {
+	&.pressed-hard .piano-key-repeat {
 		@include background(radial-gradient(#F8E32E,#D5D193));
 	}
-	&:hover .legend {
+	&:hover .piano-key-legend {
 		text-shadow: 0 0 1px white, 0 0 2px white, 0 0 3px white;
 		color: white;
 	}
 }
 
-.legend {
+.piano-key-legend {
 	position: absolute;
 	top: -30px;
 	left: 18px;
@@ -118,9 +123,12 @@ $piano-key-width: 60px;
 	box-shadow: inset 0 1px 0px white,inset 0 -1px 0px white,inset 1px 0px 0px white,inset -1px 0px 0px white,0 4px 3px rgba(0, 0, 0, 0.7);
 	border-radius: 0 0 3px 3px;
 	cursor: pointer;
+	&:hover, &:focus {
+		@include background(linear-gradient(-30deg,whiteSmoke,darken(white, 7%)));
+	}
 }
 
-.repeat {
+.piano-key-repeat {
 	cursor: pointer;
 	display: block;
 	margin: 15px auto;
@@ -129,12 +137,15 @@ $piano-key-width: 60px;
 	height: $piano-key-width * 0.8;
 	border-radius: 3px;
 	@extend .ir;
+	&:hover, &:focus {
+		@include background(radial-gradient(#fff,#bbb));
+	}
 	&:active {
 		@include background(radial-gradient(#e1e1d1,#bbb));
 	}
 }
 
-.keyboard-shortcut {
+.piano-key-keyboard-shortcut {
 	position: absolute;
 	line-height: 20px;
 	top: $piano-key-height - 25px;
@@ -151,6 +162,49 @@ $piano-key-width: 60px;
 	}
 }
 
-.piano-help {
-	color: #aaa;
+.piano-key-video {
+	display: inline-block;
+	@extend .ir;
+	@include background(image-url("video.svg") no-repeat center center);
+	@include background-size($piano-key-width*.5 $piano-key-width*.5);
+	width: $piano-key-width*.5;
+	height: $piano-key-width*.5;
+	opacity: 0.5;
+	&:hover, &:focus {
+		opacity: 1;
+	}
+}
+
+.piano-lightbox {
+	position: fixed;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	left: 0;
+	top: 0;
+	z-index: 99;
+	text-align: center;
+	@include background(radial-gradient(rgba(#fff, 0.8),rgba(#bbb, 0.8)));
+	&.active {
+		padding: 30px 0 0;
+		width: auto;
+		height: auto;
+		bottom: 0;
+		right: 0;
+	}
+	> div {
+		margin: 0 auto;
+	}
+}
+
+.piano-lightbox-video-html iframe {
+	box-shadow: 0px 2px 15px black;
+}
+.piano-lightbox-video p {
+	margin: 0;
+}
+.piano-lightbox-video-url {
+	display: inline-block;
+	padding: 20px 100px;
+	color: #222;
 }
