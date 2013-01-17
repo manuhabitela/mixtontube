@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* normalize.css 2012-03-11T12:53 UTC - http://github.com/necolas/normalize.css */
 /* Addresses styling for 'hidden' attribute not present in IE7/8/9, FF3, S4 Known issue: no IE6 support */
 [hidden] { display: none; }
@@ -52,7 +53,7 @@ mark { background: #ff0; color: #000; }
 p, pre { margin: 1em 0; }
 
 /* Corrects font family set oddly in IE6, S4/5, Chrome en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
-pre, code, kbd, samp { font-family: monospace, serif; _font-family: 'courier new', monospace; font-size: 1em; }
+pre, code, kbd, samp { font-family: monospace, serif; _font-family: "courier new", monospace; font-size: 1em; }
 
 /* Improves readability of pre-formatted text in all browsers */
 pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
@@ -101,7 +102,7 @@ figure { margin: 0; }
 form { margin: 0; }
 
 /* Define consistent border, margin, and padding */
-fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }
+fieldset { border: 1px solid silver; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }
 
 /* 1. Corrects color not being inherited in IE6/7/8/9 2. Corrects text not wrapping in FF3 3. Corrects alignment displayed oddly in IE6/7 */
 legend { border: 0; /* 1 */ padding: 0; white-space: normal; /* 2 */ *margin-left: -7px; /* 3 */ }
@@ -137,16 +138,19 @@ textarea { overflow: auto; /* 1 */ vertical-align: top; /* 2 */ }
 /* Remove most spacing between table cells */
 table { border-collapse: collapse; border-spacing: 0; }
 
-.ir { border: 0; font: 0/0 a; text-shadow: none; color: transparent; background-color: transparent; }
+.ir, .repeat { background-color: transparent; border: 0; overflow: hidden; *text-indent: -9999px; }
+.ir:before, .repeat:before { content: ""; display: block; width: 0; height: 100%; }
 
 .hidden, .mobile-only { display: none !important; visibility: hidden; }
 
 .visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
 .visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
 
-.clearfix:before, .clearfix:after, .cf:before, .cf:after { content: ""; display: table; }
-.clearfix:after, .cf:after { clear: both; }
-.clearfix, .cf { *zoom: 1; }
+.invisible { visibility: hidden; }
+
+.clearfix:before, .piano:before, .clearfix:after, .piano:after { content: " "; display: table; }
+.clearfix:after, .piano:after { clear: both; }
+.clearfix, .piano { *zoom: 1; }
 
 .rght { float: right; }
 
@@ -170,40 +174,46 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
-body, button, select, input, textarea, label { color: #222222; font-family: sans-serif; }
+body, button, select, input, textarea, label { color: #222222; font-family: Arial, Helvetica, sans-serif; }
 
 h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: normal; }
 
-#container { margin: 10px; }
+body { background: #2f2f2f url(http://subtlepatterns.com/patterns/dark_leather.png) repeat top left; }
 
-.sound-container { float: left; padding: 10px; text-align: center; position: relative; }
-.sound-container:after { content: "+ \21E7"; position: absolute; bottom: 10px; right: 12px; color: #bbb; }
+#container { margin: 10px; text-align: center; }
 
-.btn-group { white-space: nowrap; height: 42px; margin-bottom: 10px; }
-.btn-group > .btn, .btn-group > .repeat { margin: 0; position: relative; height: 100%; float: left; }
-.btn-group > .btn:first-of-type, .btn-group > .repeat:first-of-type { border-top-right-radius: 0; border-bottom-right-radius: 0; }
-.btn-group > .btn:last-of-type, .btn-group > .repeat:last-of-type { border-top-left-radius: 0; border-bottom-left-radius: 0; border-left: 0; }
+/** quelques trucs piochés du piano de Taufik Nurrohman http://hompimpaalaihumgambreng.blogspot.com/ - big up à sa famille */
+.piano { padding: 1px 1px 5px; margin-top: 150px; display: inline-block; }
 
-.btn, .repeat { display: inline-block; border: 1px solid #bbb; margin: 10px; box-shadow: inset 0 1px 0 0 white,0 1px 0 white; border-radius: 3px; color: #333; text-shadow: 0 1px 0 white; text-decoration: none; padding: 10px 15px; }
+.piano-key-wrapper.pressed .piano-key:before, .piano-key-wrapper.pressed .piano-key:after { content: ""; width: 0px; height: 0px; border-width: 320px 5px 0px; border-style: solid; position: absolute; top: 0px; }
 
-.btn { background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fefefe), color-stop(100%, #e5dfdf)); background: -webkit-linear-gradient(#fefefe, #e5dfdf); background: -moz-linear-gradient(#fefefe, #e5dfdf); background: -o-linear-gradient(#fefefe, #e5dfdf); background: linear-gradient(#fefefe, #e5dfdf); }
-.btn:hover, .btn:focus, .btn.hover { background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f1f1f1), color-stop(100%, #ddd7d7)); background: -webkit-linear-gradient(#f1f1f1, #ddd7d7); background: -moz-linear-gradient(#f1f1f1, #ddd7d7); background: -o-linear-gradient(#f1f1f1, #ddd7d7); background: linear-gradient(#f1f1f1, #ddd7d7); }
-.btn:active, .btn.active { background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dedede), color-stop(100%, #ddd7d7)); background: -webkit-linear-gradient(#dedede, #ddd7d7); background: -moz-linear-gradient(#dedede, #ddd7d7); background: -o-linear-gradient(#dedede, #ddd7d7); background: linear-gradient(#dedede, #ddd7d7); box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25); }
+.piano-key-wrapper:nth-child(4n+1):not(:last-of-type):after, .piano-key-wrapper:nth-child(4n+2):not(:last-of-type):after, .piano-key-wrapper:nth-child(4n+3):not(:last-of-type):after { content: ' '; display: block; width: 24px; height: 176px; background: black; top: -1px; position: absolute; right: -12px; z-index: 10; border-style: solid; border-width: 1px 2px 5px; background-color: #666666 #222222 #111111 #555555; background: -webkit-linear-gradient(-20deg, #333333, #000000, #333333); background: -moz-linear-gradient(-20deg, #333333, #000000, #333333); background: -o-linear-gradient(-20deg, #333333, #000000, #333333); background: linear-gradient(-20deg, #333333, #000000, #333333); border-radius: 0 0 2px 2px; box-shadow: inset 0px -1px 2px rgba(255, 255, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.4); pointer-events: none; }
 
-.repeat { background: url('../img/repeat.png?1349385798') no-repeat center center, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fefefe), color-stop(100%, #e5dfdf)); background: url('../img/repeat.png?1349385798') no-repeat center center, -webkit-linear-gradient(#fefefe, #e5dfdf); background: url('../img/repeat.png?1349385798') no-repeat center center, -moz-linear-gradient(#fefefe, #e5dfdf); background: url('../img/repeat.png?1349385798') no-repeat center center, -o-linear-gradient(#fefefe, #e5dfdf); background: url('../img/repeat.png?1349385798') no-repeat center center, linear-gradient(#fefefe, #e5dfdf); background-repeat: no-repeat; }
-.repeat:hover, .repeat:focus, .repeat.hover { background: url('../img/repeat.png?1349385798') no-repeat center center, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f1f1f1), color-stop(100%, #ddd7d7)); background: url('../img/repeat.png?1349385798') no-repeat center center, -webkit-linear-gradient(#f1f1f1, #ddd7d7); background: url('../img/repeat.png?1349385798') no-repeat center center, -moz-linear-gradient(#f1f1f1, #ddd7d7); background: url('../img/repeat.png?1349385798') no-repeat center center, -o-linear-gradient(#f1f1f1, #ddd7d7); background: url('../img/repeat.png?1349385798') no-repeat center center, linear-gradient(#f1f1f1, #ddd7d7); }
-.repeat:active, .repeat.active { background: url('../img/repeat.png?1349385798') no-repeat center center, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dedede), color-stop(100%, #ddd7d7)); background: url('../img/repeat.png?1349385798') no-repeat center center, -webkit-linear-gradient(#dedede, #ddd7d7); background: url('../img/repeat.png?1349385798') no-repeat center center, -moz-linear-gradient(#dedede, #ddd7d7); background: url('../img/repeat.png?1349385798') no-repeat center center, -o-linear-gradient(#dedede, #ddd7d7); background: url('../img/repeat.png?1349385798') no-repeat center center, linear-gradient(#dedede, #ddd7d7); background-repeat: no-repeat; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25); }
-.repeat, .repeat:hover, .repeat:focus, .repeat.hover, .repeat:active, .repeat.active { -webkit-background-size: 16px auto, auto; -moz-background-size: 16px auto, auto; -o-background-size: 16px auto, auto; background-size: 16px auto, auto; }
+.piano-key-wrapper { float: left; text-align: center; position: relative; width: 60px; }
+.piano-key-wrapper.pressed .piano-key { box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4); }
+.piano-key-wrapper.pressed .piano-key:before { left: 0px; border-color: transparent transparent transparent rgba(0, 0, 0, 0.1); }
+.piano-key-wrapper.pressed .piano-key:after { right: 0px; border-color: transparent rgba(0, 0, 0, 0.1) transparent transparent; }
+.piano-key-wrapper.pressed-hard .repeat { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #f8e32e), color-stop(100%, #d5d193)); background: -webkit-radial-gradient(#f8e32e, #d5d193); background: -moz-radial-gradient(#f8e32e, #d5d193); background: -o-radial-gradient(#f8e32e, #d5d193); background: radial-gradient(#f8e32e, #d5d193); }
+.piano-key-wrapper:hover .legend { text-shadow: 0 0 1px white, 0 0 2px white, 0 0 3px white; color: white; }
 
-.key { text-align: center; text-transform: capitalize; border: 1px solid #eee; }
-.key:disabled { background: white; }
+.legend { position: absolute; top: -30px; left: 18px; display: block; -webkit-transform: rotate(-30deg); -moz-transform: rotate(-30deg); -ms-transform: rotate(-30deg); -o-transform: rotate(-30deg); transform: rotate(-30deg); -webkit-transform-origin: left bottom; -moz-transform-origin: left bottom; -ms-transform-origin: left bottom; -o-transform-origin: left bottom; transform-origin: left bottom; cursor: pointer; white-space: nowrap; font-size: large; color: whiteSmoke; text-shadow: 0 1px 1px black; }
+
+.piano-key { display: block; position: relative; height: 320px; background: -webkit-linear-gradient(-30deg, #f5f5f5, #ffffff); background: -moz-linear-gradient(-30deg, #f5f5f5, #ffffff); background: -o-linear-gradient(-30deg, #f5f5f5, #ffffff); background: linear-gradient(-30deg, #f5f5f5, #ffffff); border: 1px solid #cccccc; margin: 0; box-shadow: inset 0 1px 0px white, inset 0 -1px 0px white, inset 1px 0px 0px white, inset -1px 0px 0px white, 0 4px 3px rgba(0, 0, 0, 0.7); border-radius: 0 0 3px 3px; cursor: pointer; }
+
+.repeat { cursor: pointer; display: block; margin: 15px auto; background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #f1f1f1), color-stop(100%, #bbbbbb)); background: -webkit-radial-gradient(#f1f1f1, #bbbbbb); background: -moz-radial-gradient(#f1f1f1, #bbbbbb); background: -o-radial-gradient(#f1f1f1, #bbbbbb); background: radial-gradient(#f1f1f1, #bbbbbb); width: 48px; height: 48px; border-radius: 3px; }
+.repeat:active { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #e1e1d1), color-stop(100%, #bbbbbb)); background: -webkit-radial-gradient(#e1e1d1, #bbbbbb); background: -moz-radial-gradient(#e1e1d1, #bbbbbb); background: -o-radial-gradient(#e1e1d1, #bbbbbb); background: radial-gradient(#e1e1d1, #bbbbbb); }
+
+.keyboard-shortcut { position: absolute; line-height: 20px; top: 295px; left: 0; right: 0; width: 60px; color: #bbb; text-align: center; text-transform: capitalize; border: none; pointer-events: none; }
+.keyboard-shortcut:disabled { background: transparent; }
+
+.piano-help { color: #aaa; }
 
 @media print { * { background: transparent !important; color: black !important; box-shadow: none !important; text-shadow: none !important; }
   a, a:visited { text-decoration: underline; }
   a[href]:after { content: " (" attr(href) ")"; }
   abbr[title]:after { content: " (" attr(title) ")"; }
-  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
-  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  .ir a:after, .repeat a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999999; page-break-inside: avoid; }
   thead { display: table-header-group; }
   tr, img { page-break-inside: avoid; }
   img { max-width: 100% !important; }

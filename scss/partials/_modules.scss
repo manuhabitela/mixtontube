@@ -4,30 +4,19 @@
 	*zoom: 1;
 }
 
-// Gradients
-@mixin gradient-h($start: #555, $end: #333) {
-	background-color: $end;
-	background-repeat: repeat-x;
-	@include background-image(linear-gradient(left, $start, $end));
-}
-
-@mixin gradient-v($start: #555, $end: #333) {
-	background-color: $end;
-	background-repeat: repeat-x;
-	@include background-image(linear-gradient($start, $end));
-}
-
-@mixin gradient-directional($start: #555, $end: #333, $deg: 45deg) {
-	background-color: $end;
-	background-repeat: repeat-x;
-	@include background-image(linear-gradient(left top, $start, $end));
-}
-
-@mixin gradient-box($primaryColor, $secondaryColor) {
-	@include gradient-v($primaryColor, $secondaryColor);
-	text-shadow: 0 -1px 0 rgba(0,0,0,.25);
-	border-color: $secondaryColor $secondaryColor darken($secondaryColor, 15%);
-	border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) fadein(rgba(0,0,0,.1), 15%);
+@mixin icon($img, $w:false) {
+	display: inline-block;
+	@extend .ir;
+	@include background(image-url($img) no-repeat center center);
+	$width: image-width($img);
+	$height: image-height($img);
+	@if $w != false {
+		$width: $w;
+		$height: image-height($img)/image-width($img)*$width;
+	}
+	@include background-size($width $height);
+	width: $width;
+	height: $height;
 }
 
 .rght { float: right;}
