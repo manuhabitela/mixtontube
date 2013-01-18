@@ -188,14 +188,14 @@
 			}
 		}
 		if (Modernizr.localstorage && JSON)
-			res = JSON.parse(localStorage.getItem(this.video.url));
+			res = JSON.parse(localStorage.getItem('piano-' + this.video.url));
 		//on met à jour le localstorage chaque semaine
 		if (res === null || new Date().getTime()/1000/60/60/24 - res.localStorageDay >= 7) {
 			$.getJSON('http://manu.habite.la/jukebox/php/video.php?url=' + this.video.url, function(res) {
 				build(res);
 				if (Modernizr.localstorage && JSON) {
 					res.localStorageDay = new Date().getTime()/1000/60/60/24;
-					localStorage.setItem(that.video.url, JSON.stringify(res));
+					localStorage.setItem('piano-' + that.video.url, JSON.stringify(res));
 				}
 			});
 		} else {
