@@ -3,3 +3,6 @@
 *.sublime-project
 *.sublime-workspace
 *en conflit*
+composer.lock
+composer.phar
+vendor/
