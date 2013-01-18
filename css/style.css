@@ -138,20 +138,6 @@ textarea { overflow: auto; /* 1 */ vertical-align: top; /* 2 */ }
 /* Remove most spacing between table cells */
 table { border-collapse: collapse; border-spacing: 0; }
 
-.ir, .piano-key-repeat, .piano-key-video { background-color: transparent; border: 0; overflow: hidden; *text-indent: -9999px; }
-.ir:before, .piano-key-repeat:before, .piano-key-video:before { content: ""; display: block; width: 0; height: 100%; }
-
-.hidden, .mobile-only { display: none !important; visibility: hidden; }
-
-.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
-.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
-
-.invisible { visibility: hidden; }
-
-.clearfix:before, .piano:before, .clearfix:after, .piano:after { content: " "; display: table; }
-.clearfix:after, .piano:after { clear: both; }
-.clearfix, .piano { *zoom: 1; }
-
 .rght { float: right; }
 
 .lft { float: left; }
@@ -172,9 +158,23 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 .ok { color: green; }
 
+.ir, .piano-key-repeat, .piano-key-video { background-color: transparent; border: 0; overflow: hidden; *text-indent: -9999px; }
+.ir:before, .piano-key-repeat:before, .piano-key-video:before { content: ""; display: block; width: 0; height: 100%; }
+
+.hidden, .mobile-only { display: none !important; visibility: hidden; }
+
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+.invisible { visibility: hidden; }
+
+.clearfix:before, .piano:before, .clearfix:after, .piano:after { content: " "; display: table; }
+.clearfix:after, .piano:after { clear: both; }
+.clearfix, .piano { *zoom: 1; }
+
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
-body, button, select, input, textarea, label { color: #222222; font-family: Arial, Helvetica, sans-serif; }
+body, button, select, input, textarea, label { color: #222; font-family: Arial, Helvetica, sans-serif; }
 
 h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: normal; }
 
