@@ -197,7 +197,8 @@ body { background: #2f2f2f url(http://subtlepatterns.com/patterns/dark_leather.p
 .piano-key-wrapper.pressed .piano-key:after { right: 0px; border-color: transparent rgba(0, 0, 0, 0.1) transparent transparent; }
 .piano-key-wrapper.pressed-hard .piano-key-repeat { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #f8e32e), color-stop(100%, #d5d193)); background: -webkit-radial-gradient(#f8e32e, #d5d193); background: -moz-radial-gradient(#f8e32e, #d5d193); background: -o-radial-gradient(#f8e32e, #d5d193); background: radial-gradient(#f8e32e, #d5d193); }
 .piano-key-wrapper:hover .piano-key-legend { text-shadow: 0 0 1px white, 0 0 2px white, 0 0 3px white; color: white; }
-@media screen and (min-width: 640px) { .piano-key-wrapper:nth-child(10n) { clear: right; } }
+@media screen and (min-width: 640px) { .piano-key-wrapper:nth-child(10n) { clear: right; }
+  .piano-key-wrapper:nth-child(10n):after { width: 0 !important; height: 0 !important; border: 0 !important; } }
 
 .piano-key-legend { position: absolute; top: -30px; left: 18px; display: block; -webkit-transform: rotate(-25deg); -moz-transform: rotate(-25deg); -ms-transform: rotate(-25deg); -o-transform: rotate(-25deg); transform: rotate(-25deg); -webkit-transform-origin: left bottom; -moz-transform-origin: left bottom; -ms-transform-origin: left bottom; -o-transform-origin: left bottom; transform-origin: left bottom; cursor: pointer; white-space: nowrap; font-size: large; color: whiteSmoke; text-shadow: 0 1px 1px black; }
 
