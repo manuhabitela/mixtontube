@@ -113,7 +113,7 @@
 			this.initKeyListeners(opts.key);
 		}
 		this.initClickListeners();
-		this.getVideoInfo();
+		this.buildVideoInfo();
 		return this;
 	};
 	MicroEvent.mixin(PianoKey);
@@ -166,7 +166,7 @@
 		}
 	};
 
-	PianoKey.prototype.getVideoInfo = function() {
+	PianoKey.prototype.buildVideoInfo = function() {
 		if (!this.video || !this.video.url)
 			return false;
 		var that = this;
