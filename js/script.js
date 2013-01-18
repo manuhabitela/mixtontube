@@ -167,10 +167,11 @@
 	};
 
 	PianoKey.prototype.buildVideoInfo = function() {
+		var that = this;
+		var res = null;
 		if (!this.video || !this.video.url)
 			return false;
-		var that = this;
-		$.getJSON('http://manu.habite.la/jukebox/php/video.php?url=' + this.video.url, function(res) {
+		function build(res) {
 			that.video.title = res.title;
 			that.video.html = res.html;
 			that.video.htmlWidth = res.width;
@@ -185,7 +186,21 @@
 				that.$el.find('.piano-key-video').attr('href', that.video.url);
 				that.$el.find('.piano-key-video').attr('target', "_blank");
 			}
-		});
+		}
+		if (Modernizr.localstorage && JSON)
+			res = JSON.parse(localStorage.getItem(this.video.url));
+		//on met à jour le localstorage chaque semaine
+		if (res === null || new Date().getTime()/1000/60/60/24 - res.localStorageDay >= 7) {
+			$.getJSON('http://manu.habite.la/jukebox/php/video.php?url=' + this.video.url, function(res) {
+				build(res);
+				if (Modernizr.localstorage && JSON) {
+					res.localStorageDay = new Date().getTime()/1000/60/60/24;
+					localStorage.setItem(that.video.url, JSON.stringify(res));
+				}
+			});
+		} else {
+			build(res);
+		}
 	};
 
 	PianoKey.prototype.initClickListeners = function(e) {
