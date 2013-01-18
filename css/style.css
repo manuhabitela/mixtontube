@@ -207,7 +207,7 @@ body { background: #2f2f2f url(http://subtlepatterns.com/patterns/dark_leather.p
 .piano-key-repeat:hover, .piano-key-repeat:focus { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #ffffff), color-stop(100%, #bbbbbb)); background: -webkit-radial-gradient(#ffffff, #bbbbbb); background: -moz-radial-gradient(#ffffff, #bbbbbb); background: -o-radial-gradient(#ffffff, #bbbbbb); background: radial-gradient(#ffffff, #bbbbbb); }
 .piano-key-repeat:active { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #e1e1d1), color-stop(100%, #bbbbbb)); background: -webkit-radial-gradient(#e1e1d1, #bbbbbb); background: -moz-radial-gradient(#e1e1d1, #bbbbbb); background: -o-radial-gradient(#e1e1d1, #bbbbbb); background: radial-gradient(#e1e1d1, #bbbbbb); }
 
-.piano-key-keyboard-shortcut { position: absolute; line-height: 20px; top: 295px; left: 0; right: 0; width: 60px; color: #bbb; text-align: center; text-transform: capitalize; border: none; pointer-events: none; }
+.piano-key-keyboard-shortcut { position: absolute; line-height: 20px; top: 295px; left: 0; right: 0; width: 60px; color: #888; text-align: center; text-transform: capitalize; border: none; pointer-events: none; }
 .piano-key-keyboard-shortcut:disabled { background: transparent; }
 
 .piano-key-video { display: inline-block; background: url('../img/video.svg?1358414818') no-repeat center center; -webkit-background-size: 30px 30px; -moz-background-size: 30px 30px; -o-background-size: 30px 30px; background-size: 30px 30px; width: 30px; height: 30px; opacity: 0.5; }
