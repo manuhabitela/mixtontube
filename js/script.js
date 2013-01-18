@@ -70,7 +70,7 @@
 			that.keys.push(currentPianoKey);
 		});
 
-		$el.append('<p class="piano-help">Utilisez <em>shift+raccourci</em> pour activer la lecture en boucle avec le clavier.</p>');
+		$el.append('<p class="piano-help">Utilisez <em>shift+raccourci</em> pour (dés)activer la lecture en boucle avec le clavier.</p>');
 		$el.append('<div class="piano-lightbox"><div class="piano-lightbox-video"><div class="piano-lightbox-video-html"></div><p><a href="#" target="_blank" class="piano-lightbox-video-url"></a></p></div></div>');
 		$el.find('.piano-lightbox').on('click', function(e) {
 			that.hideVideoLightbox();
