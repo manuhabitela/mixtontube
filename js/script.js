@@ -134,7 +134,7 @@
 		fullEl.push('<input class="piano-key-keyboard-shortcut" disabled size=1 type=text maxlength=1 value="">');
 		fullEl.push('<span class="piano-key-repeat" title="En boucle">En boucle</span>');
 		if (this.video.url)
-			fullEl.push('<a href="#" class="piano-key-video" title="Voir la vidéo d\'origine">Voir la vidéo d\'origine</a>');
+			fullEl.push('<a href="' + this.video.url + '" target="blank" class="piano-key-video" title="Voir la vidéo d\'origine">Voir la vidéo d\'origine</a>');
 		fullEl.push('</div>');
 		fullEl = fullEl.join('');
 
@@ -175,6 +175,8 @@
 			that.video.html = res.html;
 			that.video.htmlWidth = res.width;
 			if (that.video.title && that.video.html) {
+				that.$el.find('.piano-key-video').attr('href', '#');
+				that.$el.find('.piano-key-video').attr('target', '');
 				that.$el.find('.piano-key-video').on('click', function(e) {
 					that.trigger('showvideo', that.video);
 					e.preventDefault();
