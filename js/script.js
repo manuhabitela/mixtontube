@@ -243,7 +243,7 @@
 
 	PianoKey.prototype._getAudioElement = function() {
 		var audio = document.createElement('audio');
-		var ext = ['ogg', 'mp3'];
+		var ext = ['mp3', 'ogg'];
 		for (var i = ext.length - 1; i >= 0; i--) {
 			var source = document.createElement('source');
 			source.src = this.track + '.' + ext[i];
