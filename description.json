@@ -4,5 +4,6 @@
 	"class": "pianolol",
 	"tags": "website",
 	"content": "<p>Jouez du piano. Mais pas n'importe quel piano. Pas un piano classique. Pas le sampler d'Ardisson. Ni celui de Jean-Michel Jarre. Jouez du <strong>pianolol</strong>.</p><p>Le pianolol est le piano qui vous permet de jouer de la musique avec certains des sons cultes venant des vidéos de l'interwebz. Quand un son vous est inconnu, vous pouvez voir la vidéo d'où il vient directement.</p>",
-	"order": 25
+	"order": 25,
+	"images": ["http://manu.habite.la/img/pages/pianolol.png"]
 }
