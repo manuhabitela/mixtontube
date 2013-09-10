@@ -1,5 +1,5 @@
 {
     "require": {
-        "fg/essence": "dev-master"
+        "fg/essence": "2.1.0"
     }
 }

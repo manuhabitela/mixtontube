@@ -13,102 +13,25 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 
 .mobile-only { @extend .hidden; }
 
-body {
-	background: #2f2f2f url(http://subtlepatterns.com/patterns/dark_leather.png) repeat top left;
-}
-
 #container {
 	text-align: center;
 }
 
-.piano-wrapper {
-	color: #aaa;
-}
-
-/**
- * quelques trucs piochés du piano de Taufik Nurrohman http://hompimpaalaihumgambreng.blogspot.com/ - big up à sa famille */
-.piano {
-	@extend .clearfix;
-	padding: 1px 1px 5px;
-	display: inline-block;
-	//@include background(linear-gradient(-60deg,black,#333,black,#666,#333 70%));
-	//box-shadow: 0 2px 0px #666,0 3px 0px #555,0 4px 0px #444,0 6px 6px black,inset 0 -1px 1px rgba(255, 255, 255, 0.5),inset 0 -4px 5px black;
-}
-
-$piano-key-height: 200px;
-$piano-key-width: 50px;
-%pressed-shadows {
-	content: "";
-	width: 0px;
-	height: 0px;
-	border-width: $piano-key-height 5px 0px;
-	border-style: solid;
-	position: absolute;
-	top: 0px;
-}
-
-%piano-black-key {
-	content: ' ';
-	display: block;
-	width: $piano-key-width / 2.5;
-	height: $piano-key-height * 0.55;
-	background: black;
-	top: -1px;
-	position: absolute;
-	right: $piano-key-width / 2.5 / 2 * -1;
-	z-index: 10;
-	border-style: solid;
-	border-width: 1px 2px 5px;
-	background-color: #666 #222 #111 #555;
-	@include background(linear-gradient(-20deg,#333,black,#333));
-	border-radius: 0 0 2px 2px;
-	box-shadow: inset 0px -1px 2px rgba(255, 255, 255, 0.4),0 1px 3px rgba(0, 0, 0, 0.4);
-	color: black;
-	pointer-events: none;
-}
-
-.piano-key-wrapper {
+.item {
 	float: left;
 	text-align: center;
 	position: relative;
-	width: $piano-key-width;
-	margin-top: 130px;
-	&:nth-child(4n+1):not(:last-of-type):after, &:nth-child(4n+2):not(:last-of-type):after, &:nth-child(4n+3):not(:last-of-type):after {
-		@extend %piano-black-key;
-	}
-	&.pressed .piano-key {
-		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
-		&:before {
-			@extend %pressed-shadows;
-			left: 0px;
-			border-color: transparent transparent transparent rgba(0, 0, 0, 0.1);
-		}
-		&:after {
-			@extend %pressed-shadows;
-			right: 0px;
-			border-color: transparent rgba(0, 0, 0, 0.1) transparent transparent;
-		}
-	}
-	&.pressed-hard .piano-key-repeat {
-		@include background(radial-gradient(#F8E32E,#D5D193));
-	}
-	&:hover .piano-key-legend {
+	&:hover .item__sound-title {
 		text-shadow: 0 0 1px white, 0 0 2px white, 0 0 3px white;
 		color: white;
 	}
-	@media screen and (min-width: 640px) {
-		&:nth-child(10n) {
-			clear: right;
-			&:after {
-				width: 0 !important;
-				height: 0 !important;
-				border: 0 !important;
-			}
-		}
-	}
 }
 
-.piano-key-legend {
+.item__img {
+	max-width: 100px;
+}
+
+.item__sound-title {
 	position: absolute;
 	top: -30px;
 	left: 18px;
@@ -122,28 +45,13 @@ $piano-key-width: 50px;
 	text-shadow: 0 1px 1px black;
 }
 
-.piano-key {
-	display: block;
-	position: relative;
-	height: $piano-key-height;
-	@include background(linear-gradient(-30deg,whiteSmoke,white));
-	border: 1px solid #ccc;
-	margin: 0;
-	box-shadow: inset 0 1px 0px white,inset 0 -1px 0px white,inset 1px 0px 0px white,inset -1px 0px 0px white,0 4px 3px rgba(0, 0, 0, 0.7);
-	border-radius: 0 0 3px 3px;
-	cursor: pointer;
-	&:hover, &:focus {
-		@include background(linear-gradient(-30deg,whiteSmoke,darken(white, 7%)));
-	}
-}
-
-.piano-key-repeat {
+.item__sound-button {
 	cursor: pointer;
 	display: block;
 	margin: 15px auto;
 	@include background(radial-gradient(#f1f1f1,#bbb));
-	width: $piano-key-width * 0.8;
-	height: $piano-key-width * 0.8;
+	width: 40px;
+	height: 40px;
 	border-radius: 3px;
 	@extend .ir;
 	&:hover, &:focus {
@@ -154,13 +62,13 @@ $piano-key-width: 50px;
 	}
 }
 
-.piano-key-keyboard-shortcut {
+.item__sound-keyboard-shortcut {
 	position: absolute;
 	line-height: 20px;
-	top: $piano-key-height - 25px;
+	top: -25px;
 	left: 0;
 	right: 0;
-	width: $piano-key-width;
+	width: 50px;
 	color: #888;
 	text-align: center;
 	text-transform: capitalize;
@@ -171,20 +79,7 @@ $piano-key-width: 50px;
 	}
 }
 
-.piano-key-video {
-	display: inline-block;
-	@extend .ir;
-	@include background(image-url("video.svg") no-repeat center center);
-	@include background-size($piano-key-width*.5 $piano-key-width*.5);
-	width: $piano-key-width*.5;
-	height: $piano-key-width*.5;
-	opacity: 0.5;
-	&:hover, &:focus {
-		opacity: 1;
-	}
-}
-
-.piano-lightbox {
+.lightbox {
 	position: fixed;
 	width: 0;
 	height: 0;
@@ -206,13 +101,13 @@ $piano-key-width: 50px;
 	}
 }
 
-.piano-lightbox-video-html iframe {
+.lightbox__video-html iframe {
 	box-shadow: 0px 2px 15px black;
 }
-.piano-lightbox-video p {
+.lightbox__video p {
 	margin: 0;
 }
-.piano-lightbox-video-url {
+.lightbox__video-url {
 	display: inline-block;
 	padding: 20px 100px;
 	color: #222;

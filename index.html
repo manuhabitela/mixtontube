@@ -20,43 +20,43 @@
 	   <![endif]-->
 
 		<div id="container">
-			<ul id="tracks">
-				<li data-video="http://www.ouatch.fr/video/522-snoop-doggy-dog-alors-qu-est-ce-qu-on-attends" data-track="tracks/snoopdogg">Snoop Dogg</li>
-				<li data-video="http://www.ouatch.fr/video/522-snoop-doggy-dog-alors-qu-est-ce-qu-on-attends" data-track="tracks/questcequonattend">Qu'est-ce qu'on attend ?</li>
-				<li data-video="http://www.dailymotion.com/video/x39llm_le-rappeur-du-92-bilal_fun#.UPe33Rl8l-5" data-track="tracks/92">Y'a rien à faire</li>
-				<li data-video="http://www.dailymotion.com/video/x39llm_le-rappeur-du-92-bilal_fun#.UPe33Rl8l-5" data-track="tracks/tutecroischaud">Tu te crois chaud ?</li>
-				<li data-video="http://www.youtube.com/watch?v=sufXl_PpKAk" data-track="tracks/arretezdetriquiter">Arrêtez de triquiter</li>
-				<li data-video="http://www.youtube.com/watch?v=sufXl_PpKAk" data-track="tracks/aplus">À plus</li>
-				<li data-video="http://www.youtube.com/watch?v=5SIQPfeUTtg" data-track="tracks/allezviens">Allez viens</li>
-				<li data-video="http://www.youtube.com/watch?v=5SIQPfeUTtg" data-track="tracks/onestbien">On est bien</li>
-				<li data-video="http://www.youtube.com/watch?v=5SIQPfeUTtg" data-track="tracks/onestbienbienbienbienbien">On est bien bien bien</li>
-				<li data-video="http://www.wat.tv/video/bref-ai-drague-cette-fille-50jch_4mont_.html" data-track="tracks/baiselaaaaaaaa">BAISE-LAAAAAAAA</li>
-				<li data-video="http://www.youtube.com/watch?v=7gRj5tyM39A" data-track="tracks/camarchebien">Ça marche bien !</li>
-				<li data-video="http://www.youtube.com/watch?v=mQhGnJn8e_Y" data-track="tracks/coucou">Coucou</li>
-				<li data-video="http://www.youtube.com/watch?v=mQhGnJn8e_Y" data-track="tracks/tuveuxvoirmabite">Tu veux voir ma bite ?</li>
-				<li data-video="http://normanfaitdesvideos.com/" data-track="tracks/faux">FAUX</li>
-				<li data-video="http://www.youtube.com/watch?v=HXstRfE9AVU" data-track="tracks/meuporg">Meuporg</li>
-				<li data-video="http://www.youtube.com/user/cortex91officiel" data-track="tracks/draaaa">Draaaaaaaaa</li>
-				<li data-video="http://www.youtube.com/watch?v=6yHWfy_UCRg" data-track="tracks/jtekiffalinterieur">J'te kiff à l'intérieur</li>
-				<li data-video="http://www.youtube.com/watch?v=pW-AJyZ3Wmo" data-track="tracks/tesdefonce">T'es défoncé ?</li>
-				<li data-video="http://www.youtube.com/watch?v=pW-AJyZ3Wmo" data-track="tracks/nansergentchef">Nan sergent-chef !</li>
-				<li data-video="http://www.youtube.com/watch?v=pW-AJyZ3Wmo" data-track="tracks/pourquoitastropbu">Pourquoi tu te tt'as trop bu ?</li>
-				<li data-video="http://www.youtube.com/watch?v=pW-AJyZ3Wmo" data-track="tracks/pasquonmaproposechef">Parce qu'on m'a proposé chef...</li>
-				<li data-video="http://www.dailymotion.com/video/x1gk6j_clement-le-no-life_fun" data-track="tracks/destrucsplusunderground">Des trucs plus underground</li>
-				<li data-video="http://www.dailymotion.com/video/x1gk6j_clement-le-no-life_fun" data-track="tracks/ohquestcequelleestmoche">Oh qu'est-ce qu'elle est moche</li>
-				<li data-video="http://www.dailymotion.com/video/x1gk6j_clement-le-no-life_fun" data-track="tracks/vasyjtebloque">Vas-y j'te bloque</li>
-				<li data-video="http://www.dailymotion.com/video/x1gk6j_clement-le-no-life_fun" data-track="tracks/pasprendreunclio">On va pas prendre une clio</li>
-				<li data-video="https://www.youtube.com/watch?v=Uf2VzKNf7c8" data-track="tracks/nanmaisalloquoi">Nan mais allô quoi</li>
-				<li data-video="https://www.youtube.com/watch?v=Uf2VzKNf7c8" data-track="tracks/tesunefilletapasdeshampoing">T'es une fille t'as pas de shampooing</li>
-				<li data-video="https://www.youtube.com/watch?v=Uf2VzKNf7c8" data-track="tracks/tapasdecheveux">C'est comme si je te dis...</li>
-				<li data-video="https://www.youtube.com/watch?v=9XraJRCtH4M" data-track="tracks/lamernoire">La mer noire</li>
-			</ul>
+			<div class="items-container">
+			</div>
+			<div class="lightbox-container">
+			</div>
 		</div>
 
+		<script type="text/template" id="item-tpl">
+			<div class="item" data-url="<%= url %>">
+				<a class="item__video-link" href="#">
+					<img class="item__img" src="<%= img %>">
+				</a>
+				<div class="item__sounds-wrapper">
+					<% _(sounds).each(function(sound) { %>
+						<div class="item__sound" data-file="tracks/<%= sound.file %>" data-title="<%= sound.title %>">
+							<button type="button" class="item__sound-button" />
+							<form><input type="checkbox" class="item__sound-toggle"></form>
+							<div class="item__sound-title"><%= sound.title %></div>
+							<div class="item__sound-keyboard-shortcut"><%= sound.shortcut %></div>
+						</div>
+					<% }) %>
+				</div>
+			</div>
+		</script>
+		<script type="text/template" id="lightbox-tpl">
+			<div class="lightbox <%= active ? 'active' : '' %>">
+				<div class="lightbox__video">
+					<div class="lightbox__video-html"><%= html %></div>
+					<p><a href="<%= url %>" target="_blank" class="lightbox__video-url"><%= url %></a></p>
+				</div>
+			</div>
+		</script>
+		<script src="data.js"></script>
 		<script src="js/jquery.js"></script>
 		<script src="js/underscore.js"></script>
 		<script src="js/mousetrap.js"></script>
-		<script src="js/script.js?v=10"></script>
+		<script src="js/tontube.js"></script>
+		<!--<script src="js/script.js?v=10"></script> -->
 		<!--<script>
 			var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
 			(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
