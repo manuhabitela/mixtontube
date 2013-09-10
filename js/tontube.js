@@ -20,12 +20,7 @@
 			}
 		}
 	};
-	MicroEvent.mixin = function(destObject){
-		var props = ['bind', 'unbind', 'trigger'];
-		for(var i = 0; i < props.length; i ++){
-			destObject.prototype[props[i]]	= MicroEvent.prototype[props[i]];
-		}
-	};
+
 
 
 	var events = new MicroEvent();
@@ -111,15 +106,17 @@
 			this._getAudioElement(file).play();
 		},
 
-		toggle: function(file) {
-			var audio = this._getAudioElement(file);
+		toggle: function(file, el) {
 			if (this.looping[file]) {
 				this.looping[file].pause();
 				this.looping[file] = false;
+				el.removeClass('looping');
 			} else {
+				var audio = this._getAudioElement(file);
 				audio.loop = true;
 				audio.play();
 				this.looping[file] = audio;
+				el.addClass('looping');
 			}
 		},
 
@@ -152,13 +149,18 @@
 		},
 
 		initClickListeners: function(e) {
-			this.$el.on('click', '.item__sound-button', _.bind(function(e) {
-				this.play( this._getAudioFile(e) );
-			}, this));
-
-			this.$el.on('click', '.item__sound-toggle', _.bind(function(e) {
-				this.toggle( this._getAudioFile(e) );
-			}, this));
+			this.$el.find('.item__sound-button').longpress(
+				_.bind(function(e) {
+					this.toggle( this._getAudioFile(e), $(e.currentTarget) );
+				}, this),
+				_.bind(function(e) {
+					var file = this._getAudioFile(e);
+					if (this.looping[file])
+						this.toggle(file, $(e.currentTarget));
+					else
+						this.play(file);
+				}, this)
+			);
 
 			this.$el.on('click', '.item__video-link', _.bind(function(e) {
 				$link = $(e.currentTarget);

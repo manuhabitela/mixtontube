@@ -3,8 +3,13 @@
 }
 
 body, button, select, input, textarea, label {
-	color: #222;
+	color: whiteSmoke;
 	font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+	background: #000;
+	padding: 20px;
 }
 
 h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
@@ -24,35 +29,43 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 .item {
 	display: inline-block;
 	text-align: center;
+	margin: 0 15px 50px;
 	position: relative;
-	&:hover .item__sound-title {
-		text-shadow: 0 0 1px white, 0 0 2px white, 0 0 3px white;
-		color: white;
-	}
+}
+
+.item__video-link {
+	width: 150px;
+	height: 113px;
+	display: block;
+	margin: 0 auto 6px;
+	position: relative;
 }
 
 .item__img {
 	width: 150px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
+	border-radius: 3px;
+	border: 1px solid #333;
+	box-shadow: 0 0 30px #555;
 }
 
-.item__sound-title {
-	display: block;
-	@include transform(rotate(-25deg));
-	@include transform-origin(left, bottom);
-	cursor: pointer;
-	white-space: nowrap;
-	font-size: large;
-	color: whiteSmoke;
-	text-shadow: 0 1px 1px black;
+.item__sound {
+	display: inline-block;
+	position: relative;
 }
 
 .item__sound-button {
 	cursor: pointer;
 	display: block;
-	margin: 15px auto;
 	@include background(radial-gradient(#f1f1f1,#bbb));
-	width: 40px;
-	height: 40px;
+	border: 1px solid #bbb;
+	width: 35px;
+	height: 35px;
 	border-radius: 3px;
 	@extend .ir;
 	&:hover, &:focus {
@@ -60,6 +73,53 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	}
 	&:active {
 		@include background(radial-gradient(#e1e1d1,#bbb));
+	}
+	&.looping {
+		@include background(radial-gradient(#F8E32E,#D5D193));
+	}
+}
+
+.item__sound-title {
+	position: absolute;
+	// @include transform(rotate(-25deg));
+	// @include transform-origin(right, top);
+	border-radius: 3px;
+	white-space: nowrap;
+	font-size: large;
+	color: whiteSmoke;
+	background: #777;
+	border: 1px solid #444;
+	padding: 3px 6px;
+	text-shadow: 0 0 3px #222;
+	box-shadow: 0 0 10px #333;
+	z-index: 100;
+	bottom: -40px;
+	display: none;
+	.item__sound:hover & {
+		display: block;
+	}
+	&:after, &:before {
+		bottom: 100%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+	}
+	&:after {
+		border-color: rgba(119, 119, 119, 0);
+		border-bottom-color: #777;
+		border-width: 10px;
+		left: 19px;
+		margin-left: -10px;
+	}
+	&:before {
+		border-color: rgba(68, 68, 68, 0);
+		border-bottom-color: #444;
+		border-width: 11px;
+		left: 19px;
+		margin-left: -11px;
 	}
 }
 
@@ -88,9 +148,11 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 .lightbox__video-html iframe {
 	box-shadow: 0px 2px 15px black;
 }
+
 .lightbox__video p {
 	margin: 0;
 }
+
 .lightbox__video-url {
 	display: inline-block;
 	padding: 20px 100px;

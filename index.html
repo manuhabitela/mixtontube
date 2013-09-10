@@ -35,9 +35,8 @@
 					<% _(sounds).each(function(sound) { %>
 						<div class="item__sound" data-file="tracks/<%= sound.file %>" data-title="<%= sound.title %>">
 							<button type="button" class="item__sound-button" />
-							<form><input type="checkbox" class="item__sound-toggle"></form>
-							<div class="item__sound-title"><%= sound.title %></div>
 							<div class="item__sound-keyboard-shortcut"><%= sound.shortcut %></div>
+							<div class="item__sound-title"><%= sound.title %></div>
 						</div>
 					<% }) %>
 				</div>
@@ -53,6 +52,7 @@
 		</script>
 		<script src="data.js"></script>
 		<script src="js/jquery.js"></script>
+		<script src="js/jquery.longpress.js"></script>
 		<script src="js/underscore.js"></script>
 		<script src="js/mousetrap.js"></script>
 		<script src="js/tontube.js"></script>
