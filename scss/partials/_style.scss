@@ -17,8 +17,12 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	text-align: center;
 }
 
+.items-container {
+	text-align: center;
+}
+
 .item {
-	float: left;
+	display: inline-block;
 	text-align: center;
 	position: relative;
 	&:hover .item__sound-title {
@@ -28,13 +32,10 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 }
 
 .item__img {
-	max-width: 100px;
+	width: 150px;
 }
 
 .item__sound-title {
-	position: absolute;
-	top: -30px;
-	left: 18px;
 	display: block;
 	@include transform(rotate(-25deg));
 	@include transform-origin(left, bottom);
@@ -62,23 +63,6 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	}
 }
 
-.item__sound-keyboard-shortcut {
-	position: absolute;
-	line-height: 20px;
-	top: -25px;
-	left: 0;
-	right: 0;
-	width: 50px;
-	color: #888;
-	text-align: center;
-	text-transform: capitalize;
-	border: none;
-	pointer-events: none;
-	&:disabled {
-		background: transparent;
-	}
-}
-
 .lightbox {
 	position: fixed;
 	width: 0;
@@ -88,7 +72,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	top: 0;
 	z-index: 99;
 	text-align: center;
-	@include background(radial-gradient(rgba(#fff, 0.8),rgba(#bbb, 0.8)));
+	@include background(radial-gradient(rgba(#000, 0.9),rgba(#222, 0.9)));
 	&.active {
 		padding: 30px 0 0;
 		width: auto;
