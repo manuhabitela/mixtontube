@@ -183,7 +183,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 
 .items-container { text-align: center; }
 
-.item { display: inline-block; text-align: center; margin: 0 5px 15px; position: relative; background: rgba(37, 46, 82, 0.4); border-radius: 3px; padding: 3px; color: white; }
+.item { display: inline-block; text-align: center; margin: 0 5px 15px; position: relative; background: rgba(37, 46, 82, 0.4); border: 1px solid rgba(37, 46, 82, 0.2); box-shadow: 0px 2px 10px #aaa; border-radius: 3px; padding: 3px; color: white; }
 
 .item__video-link { width: 150px; height: 113px; display: block; margin: 0 auto 6px; position: relative; }
 
@@ -196,7 +196,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 .item__sound-button:active, .item__sound-button.active, .item__sound.active .item__sound-button { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 25, color-stop(0%, #e1e1d1), color-stop(100%, #bbbbbb)); background: -webkit-radial-gradient(#e1e1d1, #bbbbbb 25px); background: -moz-radial-gradient(#e1e1d1, #bbbbbb 25px); background: -o-radial-gradient(#e1e1d1, #bbbbbb 25px); background: radial-gradient(#e1e1d1, #bbbbbb 25px); }
 .item__sound.looping .item__sound-button { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 20, color-stop(0%, #f8e32e), color-stop(100%, #d5d193)); background: -webkit-radial-gradient(#f8e32e, #d5d193 20px); background: -moz-radial-gradient(#f8e32e, #d5d193 20px); background: -o-radial-gradient(#f8e32e, #d5d193 20px); background: radial-gradient(#f8e32e, #d5d193 20px); }
 
-.item__sound-title { position: absolute; border-radius: 3px; white-space: nowrap; font-size: large; color: #354275; background: whiteSmoke; border: 2px solid #354275; padding: 3px 6px; text-shadow: 0 0 3px #ccc; box-shadow: 0 0 10px #333; z-index: 100; bottom: -45px; display: none; }
+.item__sound-title { position: absolute; border-radius: 3px; white-space: nowrap; font-size: large; color: #354275; background: whiteSmoke; border: 2px solid #354275; padding: 3px 6px; box-shadow: 0 0 10px #333; z-index: 100; bottom: -45px; display: none; }
 .item__sound:hover .item__sound-title { display: block; }
 .item__sound-title:after, .item__sound-title:before { bottom: 100%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }
 .item__sound-title:after { border-color: rgba(119, 119, 119, 0); border-bottom-color: whiteSmoke; border-width: 10px; left: 19px; margin-left: -14px; }

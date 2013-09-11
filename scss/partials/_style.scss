@@ -32,6 +32,8 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	margin: 0 5px 15px;
 	position: relative;
 	background: rgba(darken(#354275, 10%), 0.4);
+	border: 1px solid rgba(darken(#354275, 10%), 0.2);
+	box-shadow: 0px 2px 10px #aaa;
 	border-radius: 3px;
 	padding: 3px;
 	color: white;
@@ -86,8 +88,6 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 
 .item__sound-title {
 	position: absolute;
-	// @include transform(rotate(-25deg));
-	// @include transform-origin(right, top);
 	border-radius: 3px;
 	white-space: nowrap;
 	font-size: large;
@@ -95,7 +95,6 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	background: whiteSmoke;
 	border: 2px solid #354275;
 	padding: 3px 6px;
-	text-shadow: 0 0 3px #ccc;
 	box-shadow: 0 0 10px #333;
 	z-index: 100;
 	bottom: -45px;
