@@ -49,8 +49,12 @@
 		initItems: function() {
 			var $tmp = $(document.createElement('div'));
 			var item = null;
+			var i = -1;
 			_(this.data).each(function(sounds, video) {
-				_(sounds).each(function(item) { _.defaults(item, { shortcut: '' }); });
+				_(sounds).each(function(sound) {
+					i++;
+					_.defaults(sound, { shortcut: this.keyboard.charAt(i) });
+				}, this);
 				item = new Item({ url: video, img: '', sounds: sounds });
 				$tmp.append( item.$el );
 			}, this);
@@ -71,25 +75,6 @@
 
 
 
-	var Lightbox = function() {
-		this.template = _.template( $('#lightbox-tpl').html() );
-		this.defaultData = { html: '', url: '', active: false };
-		this.$el = $(document.createElement('div')).append(this.template(this.defaultData)).children();
-	};
-
-	Lightbox.prototype = {
-		show: function(data) {
-			var lightboxData = { html: data.video, url: data.url, active: true };
-			this.$el.html( this.template( lightboxData ) );
-		},
-
-		hide: function() {
-			this.$el.html( this.template(this.defaultData) );
-		}
-	};
-
-
-
 	var Item = function(data) {
 		_.defaults(data, {url: '', img: '', video: '', sounds: {}});
 		this.data = data;
@@ -97,6 +82,7 @@
 		this.template = _.template( $('#item-tpl').html() );
 		this.$el = $(document.createElement('div')).append(this.template(data)).children();
 		this.initClickListeners();
+		this.initKeyListeners();
 		this.getVideoInfo();
 		return this;
 	};
@@ -110,13 +96,13 @@
 			if (this.looping[file]) {
 				this.looping[file].pause();
 				this.looping[file] = false;
-				el.removeClass('looping');
+				if (el) el.removeClass('looping');
 			} else {
 				var audio = this._getAudioElement(file);
 				audio.loop = true;
 				audio.play();
 				this.looping[file] = audio;
-				el.addClass('looping');
+				if (el) el.addClass('looping');
 			}
 		},
 
@@ -151,12 +137,12 @@
 		initClickListeners: function(e) {
 			this.$el.find('.item__sound-button').longpress(
 				_.bind(function(e) {
-					this.toggle( this._getAudioFile(e), $(e.currentTarget) );
+					this.toggle( this._getAudioFile(e), $(e.currentTarget).closest('.item__sound') );
 				}, this),
 				_.bind(function(e) {
 					var file = this._getAudioFile(e);
 					if (this.looping[file])
-						this.toggle(file, $(e.currentTarget));
+						this.toggle(file, $(e.currentTarget).closest('.item__sound'));
 					else
 						this.play(file);
 				}, this)
@@ -175,6 +161,27 @@
 			}, this));
 		},
 
+		initKeyListeners: function() {
+			var that = this;
+			_(this.data.sounds).each(function(sound) {
+				console.log(sound);
+				var $el = $('.item__sound[data-file="' + sound.file + '"]', that.$el);
+
+				Mousetrap.bind(sound.shortcut, function(e) {
+					console.log(sound.shortcut);
+					that.play(sound.file);
+					$el.addClass('active');
+				}, 'keydown');
+				Mousetrap.bind(sound.shortcut, function(e) {
+					$el.removeClass('active');
+				}, 'keyup');
+
+				Mousetrap.bind('shift+' + sound.shortcut, function(e) {
+					that.toggle(sound.file, $el);
+				});
+			}, this);
+		},
+
 		_getAudioElement: function(file) {
 			var audio = document.createElement('audio');
 			var ext = ['mp3', 'ogg'];
@@ -188,6 +195,25 @@
 
 		_getAudioFile: function(event) {
 			return $(event.currentTarget).closest('.item__sound').attr('data-file');
+		}
+	};
+
+
+
+	var Lightbox = function() {
+		this.template = _.template( $('#lightbox-tpl').html() );
+		this.defaultData = { html: '', url: '', active: false };
+		this.$el = $(document.createElement('div')).append(this.template(this.defaultData)).children();
+	};
+
+	Lightbox.prototype = {
+		show: function(data) {
+			var lightboxData = { html: data.video, url: data.url, active: true };
+			this.$el.html( this.template( lightboxData ) );
+		},
+
+		hide: function() {
+			this.$el.html( this.template(this.defaultData) );
 		}
 	};
 

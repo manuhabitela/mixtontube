@@ -24,6 +24,9 @@
 			</div>
 			<div class="lightbox-container">
 			</div>
+			<div class="info">
+				<p>Faites un clic long sur un bouton ou utilisez shift+raccourci pour (dés)activer la lecture en boucle d'un son.</p>
+			</div>
 		</div>
 
 		<script type="text/template" id="item-tpl">
@@ -33,7 +36,7 @@
 				</a>
 				<div class="item__sounds-wrapper">
 					<% _(sounds).each(function(sound) { %>
-						<div class="item__sound" data-file="tracks/<%= sound.file %>" data-title="<%= sound.title %>">
+						<div class="item__sound" data-file="<%= sound.file %>" data-title="<%= sound.title %>" data-shortcut="<%= sound.shortcut %>">
 							<button type="button" class="item__sound-button" />
 							<div class="item__sound-keyboard-shortcut"><%= sound.shortcut %></div>
 							<div class="item__sound-title"><%= sound.title %></div>
