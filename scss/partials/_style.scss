@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald);
+
 * {
 	@include box-sizing(border-box);
 }
@@ -20,6 +22,32 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 
 #container {
 	text-align: center;
+}
+
+.title-container {
+	h1, h2 {
+		display: inline-block;
+		margin-right: 10px;
+	}
+}
+
+.title {
+	color: #333;
+	font-family: Oswald, Arial, Helvetica, sans-serif;
+	text-shadow: 0 1px 1px white;
+}
+
+.subtitle {
+	font-size: 1em;
+}
+
+.tube {
+	color: whiteSmoke;
+	text-shadow: 0 1px 1px #222;
+	padding: 0 6px;
+	border-radius: 15%/50%;
+	background: #354275;
+	@include background(linear-gradient(lighten(#354275, 10%) 25px, darken(#354275, 10%)));
 }
 
 .items-container {
