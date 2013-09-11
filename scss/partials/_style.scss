@@ -4,14 +4,19 @@
 	@include box-sizing(border-box);
 }
 
+*[draggable=true] {
+	-moz-user-select:none;
+	-khtml-user-drag: element;
+	user-select: none;
+}
+
 body, button, select, input, textarea, label {
-	color: whiteSmoke;
+	color: #354275;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
 	background: #D2DDDD;
-	padding: 20px;
 }
 
 h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
@@ -52,6 +57,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 
 .items-container {
 	text-align: center;
+	padding: 20px;
 }
 
 .item {
@@ -119,43 +125,72 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 }
 
 .item__sound-title {
+	@extend %tooltip;
 	position: absolute;
-	border-radius: 3px;
-	white-space: nowrap;
-	font-size: large;
-	color: #354275;
-	background: whiteSmoke;
-	border: 2px solid #354275;
-	padding: 3px 6px;
-	box-shadow: 0 0 10px #333;
-	z-index: 100;
 	bottom: -45px;
 	display: none;
 	.item__sound:hover & {
 		display: block;
 	}
-	&:after, &:before {
-		bottom: 100%;
-		border: solid transparent;
-		content: " ";
-		height: 0;
-		width: 0;
-		position: absolute;
-		pointer-events: none;
-	}
+}
+
+.track {
+	display: table;
+	width: 100%;
+}
+
+.track__items-wrapper {
+	display: table-cell;
+	width: 100%;
+	vertical-align: middle;
+}
+
+.track__items {
+	height: 50px;
+	background: rgba(#354275, 0.2);
+	position: relative;
+	text-align: left;
 	&:after {
-		border-color: rgba(119, 119, 119, 0);
-		border-bottom-color: whiteSmoke;
-		border-width: 10px;
-		left: 19px;
-		margin-left: -14px;
+		position: absolute;
+		top: 25px;
+		left: 0;
+		right: 0;
+		height: 0;
+		border-top: 1px solid rgba(#354275, 0.3);
+		content: ' ';
+		display: block;
+		z-index: 10;
 	}
-	&:before {
-		border-color: rgba(68, 68, 68, 0);
-		border-bottom-color: #354275;
-		border-width: 12px;
-		left: 19px;
-		margin-left: -16px;
+}
+
+.track__buttons-wrapper {
+	display: table-cell;
+	vertical-align: middle;
+	width: 100px;
+	button {
+		color: #222;
+	}
+}
+
+.track__item {
+	display: inline-block;
+	margin-right: 10px;
+	background: rgba(black, 0.8);
+	min-width: 50px;
+	height: 50px;
+	position: relative;
+	z-index: 20;
+}
+
+.track__item-img {
+	height: 100%;
+}
+
+.track__item-title {
+	@extend %tooltip;
+	display: none;
+	.track__item:hover & {
+		display: block;
 	}
 }
 

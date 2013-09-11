@@ -1,3 +1,40 @@
+%tooltip {
+  border-radius: 3px;
+  white-space: nowrap;
+  font-size: large;
+  color: #354275;
+  background: whiteSmoke;
+  border: 2px solid #354275;
+  padding: 3px 6px;
+  box-shadow: 0 0 10px #333;
+  z-index: 100;
+  position: absolute;
+  bottom: -45px;
+  &:after, &:before {
+    bottom: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  &:after {
+    border-color: rgba(119, 119, 119, 0);
+    border-bottom-color: whiteSmoke;
+    border-width: 10px;
+    left: 19px;
+    margin-left: -14px;
+  }
+  &:before {
+    border-color: rgba(68, 68, 68, 0);
+    border-bottom-color: #354275;
+    border-width: 12px;
+    left: 19px;
+    margin-left: -16px;
+  }
+}
+
 @mixin h5bp-helpers {
 
   .ir { @include image-replacement; }

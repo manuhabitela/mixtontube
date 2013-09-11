@@ -50,10 +50,10 @@
 
 		batchPlay: function(elements, position) {
 			if (typeof position === "undefined") position = 0;
-			currentElement = elements[pos];
+			currentElement = elements[position];
 			if (currentElement) {
 				$(currentElement).on("ended", function() {
-					playNext(elements, pos+1);
+					AudioUtils.batchPlay(elements, position+1);
 				});
 				currentElement.play();
 			}
@@ -74,10 +74,14 @@
 		this.dom = {
 			items: this.$el.find('.items-container'),
 			lightbox: this.$el.find('.lightbox-container'),
+			track: this.$el.find('.track-container'),
 		};
 
 		this.initLightbox();
 		this.initItems();
+		this.initTrack();
+
+		this.initDragAndDropEvents();
 	};
 
 	App.prototype = {
@@ -85,6 +89,7 @@
 			var $tmp = $(document.createElement('div'));
 			var item = null;
 			var i = -1;
+			this.items = [];
 			_(this.data).each(function(sounds, video) {
 				_(sounds).each(function(sound) {
 					i++;
@@ -92,19 +97,56 @@
 				}, this);
 				item = new Item({ url: video, img: '', sounds: sounds });
 				$tmp.append( item.$el );
+				this.items.push(item);
 			}, this);
 			this.dom.items.empty().append( $tmp.children() );
 		},
 
 		initLightbox: function() {
-			var lightbox = new Lightbox();
-			this.dom.lightbox.empty().append( lightbox.$el );
+			this.lightbox = new Lightbox();
+			this.dom.lightbox.empty().append( this.lightbox.$el );
 			this.$el.on('click', '.lightbox', function(e) {
-				lightbox.hide();
+				this.lightbox.hide();
 			});
 			events.bind('show-video', function(data) {
-				lightbox.show(data);
+				this.lightbox.show(data);
 			});
+		},
+
+		initTrack: function() {
+			this.track = new Track();
+			this.dom.track.empty().append( this.track.$el );
+		},
+
+		initDragAndDropEvents: function() {
+			$('.item__sound-button-container').attr('draggable', true);
+			$('.item__sound-button-container').on('dragstart', function(e) {
+				e.originalEvent.dataTransfer.effectAllowed = 'copy';
+
+				var $sound = $(this).closest('.item__sound');
+				var trackData = {
+					file: $sound.attr('data-file'),
+					title: $sound.attr('data-title'),
+					img: $sound.closest('.item').attr('data-img')
+				};
+				e.originalEvent.dataTransfer.setData('Text', JSON.stringify(trackData));
+			});
+
+			$('.track').on('drop', _.bind(function(e) {
+				var trackData = JSON.parse(e.originalEvent.dataTransfer.getData('Text'));
+				this.track.addItem(trackData);
+
+				e.preventDefault();
+				e.stopPropagation();
+			}, this));
+
+			$('.track').on('dragover', function(e) {
+				e.preventDefault();
+				e.originalEvent.dataTransfer.dropEffect = 'copy';
+				return false;
+			});
+
+			$('.track').on('dragenter', function(e) { return false; });
 		}
 	};
 
@@ -171,6 +213,7 @@
 			if (!this.data.img) {
 				this.data.img = res.thumbnailUrl;
 				this.$el.find('.item__img').attr('src', this.data.img);
+				this.$el.attr('data-img', this.data.img);
 			}
 		},
 
@@ -229,6 +272,52 @@
 
 
 
+	var Track = function(data) {
+		this.data = _.extend({}, data);
+		this.templates = {
+			item: _.template( $('#track-item-tpl').html() ),
+			track: _.template( $('#track-tpl').html() )
+		};
+		this.$el = $(document.createElement('div')).append(this.templates.track(this.data)).children();
+
+		this.$el.on('click', '.track__play-button', _.bind(this.play, this));
+		this.$el.on('click', '.track__reset-button', _.bind(this.empty, this));
+	};
+
+	Track.prototype = {
+		addItem: function(data) {
+			var $item = $(document.createElement('div')).append(this.templates.item(data)).children();
+			this.$el.find('.track__items').append($item);
+
+			this.updateList();
+		},
+
+		updateList: function() {
+			this.items = [];
+			this.$el.find('.track__item').each(_.bind(function(key, item) {
+				var $item = $(item);
+				var itemData = {
+					file: $item.attr('data-file'),
+					title: $item.attr('data-title'),
+					img: $item.attr('data-img')
+				};
+				itemData.element = AudioUtils.element(itemData.file);
+				this.items.push(itemData);
+			}, this));
+		},
+
+		play: function() {
+			AudioUtils.batchPlay( _(this.items).pluck('element') );
+		},
+
+		empty: function() {
+			this.$el.find('.track__item').remove();
+			this.updateList();
+		}
+	};
+
+
+
 	var Lightbox = function() {
 		this.template = _.template( $('#lightbox-tpl').html() );
 		this.defaultData = { html: '', url: '', active: false };
@@ -248,5 +337,5 @@
 
 
 
-	var app = new App( window.leimidata, document.getElementById('container') );
+	window.leimiapp = new App( window.leimidata, document.getElementById('container') );
 })();

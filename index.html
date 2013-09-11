@@ -10,7 +10,7 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width">
 
-		<link rel="stylesheet" href="css/style.css?v=1337">
+		<link rel="stylesheet" href="css/style.css?v=42">
 		<script src="js/modernizr.custom.js"></script>
 
 	</head>
@@ -22,32 +22,55 @@
 		<div id="container">
 			<div class="title-container">
 				<h1 class="title">MixTon<span class="tube">Tube</span></h1>
-				<h2 class="subtitle">Découvre, redécouvre et joue avec ces bons moments des internet français</h2>
+				<h2 class="subtitle">Découvre, redécouvre et joue ces bons moments des internet français</h2>
 			</div>
 			<div class="items-container">
 			</div>
-			<div class="lightbox-container">
-			</div>
 			<div class="info">
 				<p>Coche une case ou utilise <code>shift+raccourci</code> pour activer la lecture en boucle d'un son.</p>
+				<p>Glisse les boutons que tu veux sur la piste pour créer une pure chanson !</p>
+			</div>
+			<div class="track-container">
+			</div>
+			<div class="lightbox-container">
 			</div>
 		</div>
 
 		<script type="text/template" id="item-tpl">
-			<div class="item" data-url="<%= url %>">
+			<div class="item" data-url="<%= url %>" data-img="<%= img %>">
 				<a class="item__video-link" href="#">
 					<img class="item__img" src="<%= img %>">
 				</a>
 				<div class="item__sounds-wrapper">
 					<% _(sounds).each(function(sound) { %>
 						<div class="item__sound" data-file="<%= sound.file %>" data-title="<%= sound.title %>" data-shortcut="<%= sound.shortcut %>">
-							<button type="button" class="item__sound-button" />
+							<div class="item__sound-button-container">
+								<!-- oui c'est pas un button alors que ça devrait, mais FF ne veut pas drag&drop sinon'... -->
+								<span class="item__sound-button" /></span>
+							</div>
 							<input type="checkbox" class="item__sound-checkbox" />
 							<div class="item__sound-keyboard-shortcut"><%= sound.shortcut ? sound.shortcut : '&nbsp;' %></div>
 							<div class="item__sound-title"><%= sound.title %></div>
 						</div>
 					<% }) %>
 				</div>
+			</div>
+		</script>
+		<script type="text/template" id="track-tpl">
+			<div class="track">
+				<div class="track__items-wrapper">
+					<div class="track__items"></div>
+				</div>
+				<div class="track__buttons-wrapper">
+					<button type="button" class="track__play-button">Lecture</button>
+					<button type="button" class="track__reset-button">Réinitialiser</button>
+				</div>
+			</div>
+		</script>
+		<script type="text/template" id="track-item-tpl">
+			<div class="track__item" data-file="<%= file %>" data-title="<%= title %>" data-img="<%= img %>">
+				<img class="track__item-img" src="<%= img %>">
+				<div class="track__item-title"><%= title %></div>
 			</div>
 		</script>
 		<script type="text/template" id="lightbox-tpl">
@@ -58,11 +81,11 @@
 				</div>
 			</div>
 		</script>
-		<script src="data.js?v=1337"></script>
-		<script src="js/jquery.js?v=1337"></script>
-		<script src="js/underscore.js?v=1337"></script>
-		<script src="js/mousetrap.js?v=1337"></script>
-		<script src="js/tontube.js?v=1337"></script>
+		<script src="data.js?v=42"></script>
+		<script src="js/jquery.js?v=42"></script>
+		<script src="js/underscore.js?v=42"></script>
+		<script src="js/mousetrap.js?v=42"></script>
+		<script src="js/tontube.js?v=42"></script>
 		<!--<script src="js/script.js?v=10"></script> -->
 		<!--<script>
 			var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
