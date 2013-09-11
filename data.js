@@ -57,5 +57,10 @@ window.leimidata = {
 	],
 	"https://www.youtube.com/watch?v=9XraJRCtH4M": [
 		{ "file": "tracks/lamernoire", "title": "La mer noire" },
+	],
+	"https://www.youtube.com/watch?v=tlm2H8B27XA": [
+		{ "file": "tracks/timagineyalesclochards", "title": "T'imagine y'a les clochards et tout" },
+		{ "file": "tracks/nancametonnerait", "title": "Nan ça m'étonnerait" },
+		{ "file": "tracks/jvoulaisretirerpasmefairetirer", "title": "J'voulais retirer pas me faire tirer !" }
 	]
 };
