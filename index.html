@@ -25,7 +25,7 @@
 			<div class="lightbox-container">
 			</div>
 			<div class="info">
-				<p>Appuie longtemps sur un bouton ou utilise <code>shift+raccourci</code> pour activer la lecture en boucle d'un son.</p>
+				<p>Coche une case ou utilise <code>shift+raccourci</code> pour activer la lecture en boucle d'un son.</p>
 			</div>
 		</div>
 
@@ -38,6 +38,7 @@
 					<% _(sounds).each(function(sound) { %>
 						<div class="item__sound" data-file="<%= sound.file %>" data-title="<%= sound.title %>" data-shortcut="<%= sound.shortcut %>">
 							<button type="button" class="item__sound-button" />
+							<input type="checkbox" class="item__sound-checkbox" />
 							<div class="item__sound-keyboard-shortcut"><%= sound.shortcut ? sound.shortcut : '&nbsp;' %></div>
 							<div class="item__sound-title"><%= sound.title %></div>
 						</div>
@@ -55,7 +56,6 @@
 		</script>
 		<script src="data.js?v=1337"></script>
 		<script src="js/jquery.js?v=1337"></script>
-		<script src="js/jquery.longpress.js?v=1337"></script>
 		<script src="js/underscore.js?v=1337"></script>
 		<script src="js/mousetrap.js?v=1337"></script>
 		<script src="js/tontube.js?v=1337"></script>
