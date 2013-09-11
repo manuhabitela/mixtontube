@@ -132,21 +132,28 @@
 				e.originalEvent.dataTransfer.setData('Text', JSON.stringify(trackData));
 			});
 
-			$('.track').on('drop', _.bind(function(e) {
-				var trackData = JSON.parse(e.originalEvent.dataTransfer.getData('Text'));
-				this.track.addItem(trackData);
+			$('.track__items-wrapper').on('drop', _.bind(function(e) {
+				var transferedData = e.originalEvent.dataTransfer.getData('Text');
+				if (transferedData) {
+					var trackData = JSON.parse(transferedData);
+					this.track.addItem(trackData);
 
-				e.preventDefault();
-				e.stopPropagation();
+					$('.track__items').sortable({ items: '.track__item' }).on('sortupdate', _.bind(function() {
+						this.track.updateList();
+					}, this));
+
+					e.preventDefault();
+					e.stopPropagation();
+				}
 			}, this));
 
-			$('.track').on('dragover', function(e) {
+			$('.track__items-wrapper').on('dragover', function(e) {
 				e.preventDefault();
 				e.originalEvent.dataTransfer.dropEffect = 'copy';
 				return false;
 			});
 
-			$('.track').on('dragenter', function(e) { return false; });
+			$('.track__items-wrapper').on('dragenter', function(e) { return false; });
 		}
 	};
 
