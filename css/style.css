@@ -183,7 +183,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 body, button, select, input, textarea, label { color: #354275; font-family: Arial, Helvetica, sans-serif; }
 
-body { background: #D2DDDD; }
+body { background: #D2DDDD; background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #eff3f3), color-stop(100%, #b5c7c7)); background: -webkit-radial-gradient(#eff3f3, #b5c7c7); background: -moz-radial-gradient(#eff3f3, #b5c7c7); background: -o-radial-gradient(#eff3f3, #b5c7c7); background: radial-gradient(#eff3f3, #b5c7c7); }
 
 h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: normal; }
 
@@ -197,11 +197,11 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 
 .tube { color: whiteSmoke; text-shadow: 0 1px 1px #222; padding: 0 6px; border-radius: 15%/50%; background: #354275; background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(25px, #455698), color-stop(100%, #252e52)); background: -webkit-linear-gradient(#455698 25px, #252e52); background: -moz-linear-gradient(#455698 25px, #252e52); background: -o-linear-gradient(#455698 25px, #252e52); background: linear-gradient(#455698 25px, #252e52); }
 
-.items-container { text-align: center; padding: 20px; }
+.items-container { text-align: center; padding: 0 20px; }
 
 .item { display: inline-block; text-align: center; margin: 0 5px 15px; position: relative; background: rgba(37, 46, 82, 0.4); border: 1px solid rgba(37, 46, 82, 0.2); box-shadow: 0px 2px 10px #aaa; border-radius: 3px; padding: 3px; color: white; }
 
-.item__video-link { width: 150px; height: 113px; display: block; margin: 0 auto 6px; position: relative; }
+.item__video-link { width: 150px; height: 113px; overflow: hidden; display: block; margin: 0 auto 6px; position: relative; }
 
 .item__img { width: 150px; position: absolute; top: 0; bottom: 0; right: 0; left: 0; margin: auto; border-radius: 3px 3px 0 0; }
 
@@ -219,13 +219,11 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 
 .track { display: table; width: 100%; }
 
-.track__items-wrapper { display: table-cell; width: 100%; vertical-align: middle; }
-
 .track__items { height: 50px; background: rgba(53, 66, 117, 0.2); position: relative; text-align: left; }
 .track__items:after { position: absolute; top: 25px; left: 0; right: 0; height: 0; border-top: 1px solid rgba(53, 66, 117, 0.3); content: ' '; display: block; z-index: 10; }
 
-.track__buttons-wrapper { display: table-cell; vertical-align: middle; width: 100px; }
-.track__buttons-wrapper button { color: #222; }
+.track__buttons-wrapper { text-align: center; margin: 6px 0; }
+.track__buttons-wrapper button { display: inline-block; color: #222; }
 
 .track__item { display: inline-block; margin-right: 10px; background: rgba(0, 0, 0, 0.8); min-width: 50px; height: 50px; position: relative; z-index: 20; }
 

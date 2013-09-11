@@ -17,6 +17,7 @@ body, button, select, input, textarea, label {
 
 body {
 	background: #D2DDDD;
+	@include background(radial-gradient(lighten(#D2DDDD, 10%), darken(#D2DDDD, 10%)));
 }
 
 h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
@@ -57,7 +58,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 
 .items-container {
 	text-align: center;
-	padding: 20px;
+	padding: 0 20px;
 }
 
 .item {
@@ -76,6 +77,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 .item__video-link {
 	width: 150px;
 	height: 113px;
+	overflow: hidden;
 	display: block;
 	margin: 0 auto 6px;
 	position: relative;
@@ -140,9 +142,6 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 }
 
 .track__items-wrapper {
-	display: table-cell;
-	width: 100%;
-	vertical-align: middle;
 }
 
 .track__items {
@@ -164,10 +163,10 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 }
 
 .track__buttons-wrapper {
-	display: table-cell;
-	vertical-align: middle;
-	width: 100px;
+	text-align: center;
+	margin: 6px 0;
 	button {
+		display: inline-block;
 		color: #222;
 	}
 }

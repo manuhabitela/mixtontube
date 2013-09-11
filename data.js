@@ -32,9 +32,6 @@ window.leimidata = {
 	"http://www.youtube.com/watch?v=HXstRfE9AVU": [
 		{ "file": "tracks/meuporg", "title": "Meuporg" }
 	],
-	"http://www.youtube.com/user/cortex91officiel": [
-		{ "file": "tracks/draaaa", "title": "Draaaaaaaaa" }
-	],
 	"http://www.youtube.com/watch?v=6yHWfy_UCRg": [
 		{ "file": "tracks/jtekiffalinterieur", "title": "J'te kiff à l'intérieur" }
 	],

@@ -95,7 +95,7 @@
 					i++;
 					_.defaults(sound, { shortcut: this.keyboard.charAt(i) });
 				}, this);
-				item = new Item({ url: video, img: '', sounds: sounds });
+				item = new Item({ url: video, sounds: sounds });
 				$tmp.append( item.$el );
 				this.items.push(item);
 			}, this);
@@ -105,12 +105,12 @@
 		initLightbox: function() {
 			this.lightbox = new Lightbox();
 			this.dom.lightbox.empty().append( this.lightbox.$el );
-			this.$el.on('click', '.lightbox', function(e) {
+			this.$el.on('click', '.lightbox', _.bind(function(e) {
 				this.lightbox.hide();
-			});
-			events.bind('show-video', function(data) {
+			}, this));
+			events.bind('show-video', _.bind(function(data) {
 				this.lightbox.show(data);
-			});
+			}, this));
 		},
 
 		initTrack: function() {
@@ -153,7 +153,7 @@
 
 
 	var Item = function(data) {
-		_.defaults(data, {url: '', img: '', video: '', sounds: {}});
+		_.defaults(data, {url: '', img: 'http://placekitten.com/g/150/113', video: '', sounds: {}});
 		this.data = data;
 		this.looping = {};
 		this.template = _.template( $('#item-tpl').html() );
@@ -210,11 +210,9 @@
 
 		saveVideoInfo: function(res) {
 			this.data.video = res.html;
-			if (!this.data.img) {
-				this.data.img = res.thumbnailUrl;
-				this.$el.find('.item__img').attr('src', this.data.img);
-				this.$el.attr('data-img', this.data.img);
-			}
+			this.data.img = res.thumbnailUrl;
+			this.$el.find('.item__img').attr('src', this.data.img);
+			this.$el.attr('data-img', this.data.img);
 		},
 
 		initClickListeners: function(e) {
@@ -288,6 +286,7 @@
 		addItem: function(data) {
 			var $item = $(document.createElement('div')).append(this.templates.item(data)).children();
 			this.$el.find('.track__items').append($item);
+			this.$el.find('.track__buttons-wrapper').removeClass('hidden');
 
 			this.updateList();
 		},
@@ -312,6 +311,7 @@
 
 		empty: function() {
 			this.$el.find('.track__item').remove();
+			this.$el.find('.track__buttons-wrapper').addClass('hidden');
 			this.updateList();
 		}
 	};
