@@ -1,3 +1,5 @@
+//méthode rache pasque sinon c'est pas drole
+
 (function() {
 	//https://github.com/jeromeetienne/microevent.js
 	var MicroEvent	= function(){};
@@ -41,21 +43,36 @@
 
 		loop: function(element) {
 			element.loop = true;
-			$(element).on("ended", function() {
+			$(element).on("ended.utils", function() {
 				this.currentTime = 0;
 				this.play();
 			});
 			element.play();
 		},
 
+		unloop: function(element) {
+			element.removeAttribute('loop');
+			$(element).off("ended.utils.loop");
+			element.pause();
+		},
+
 		batchPlay: function(elements, position) {
 			if (typeof position === "undefined") position = 0;
 			currentElement = elements[position];
 			if (currentElement) {
-				$(currentElement).on("ended", function() {
+				AudioUtils.currentBatchElementPlaying = currentElement; //j'aime les noms de variable à rallonge
+				$(currentElement).on("ended.utils.batch", function() {
 					AudioUtils.batchPlay(elements, position+1);
 				});
 				currentElement.play();
+			} else
+				AudioUtils.currentBatchElementPlaying = null;
+		},
+
+		stopCurrentBatchPlay: function() {
+			if (AudioUtils.currentBatchElementPlaying) {
+				$(AudioUtils.currentBatchElementPlaying).off('ended.utils.batch');
+				AudioUtils.currentBatchElementPlaying.pause();
 			}
 		}
 	};
@@ -132,15 +149,15 @@
 					};
 					e.originalEvent.dataTransfer.setData('Text', JSON.stringify(trackData));
 
-					$('.track__items-wrapper').addClass('droppable');
+					$('.dndwrapper').addClass('droppable');
 				})
 				.on('dragend', function(e) {
-					$('.track__items-wrapper').removeClass('droppable');
+					$('.dndwrapper').removeClass('droppable');
 				});
 
 
 
-			$('.track__items-wrapper')
+			$('.dndwrapper')
 				.on('dragenter', function(e) {
 					$(this).addClass('dropping');
 					return false;
@@ -155,21 +172,6 @@
 					e.originalEvent.dataTransfer.dropEffect = 'copy';
 					return false;
 				})
-				.on('drop', _.bind(function(e) {
-					$(e.currentTarget).removeClass('dropping');
-					var transferedData = e.originalEvent.dataTransfer.getData('Text');
-					if (transferedData) {
-						var trackData = JSON.parse(transferedData);
-						this.track.addItem(trackData);
-
-						$('.track__items').sortable({ items: '.track__item' }).on('sortupdate', _.bind(function() {
-							this.track.updateList();
-						}, this));
-
-						e.preventDefault();
-						e.stopPropagation();
-					}
-				}, this))
 				//alors, c'est p'tete foireux mais ça a l'air de fonctionner pas trop mal : si on drop un élément de la piste
 				//sur un truc qui n'est pas fait pour ça (autrement dit, n'importe où autre part que sur la piste),
 				//on supprime l'élément de la piste
@@ -177,6 +179,28 @@
 					if (e.originalEvent.dataTransfer.dropEffect === 'none') {
 						$(e.currentTarget).remove();
 						this.track.updateList();
+
+						e.preventDefault();
+						e.stopPropagation();
+					}
+				}, this))
+				.on('drop', _.bind(function(e) {
+					var $target = $(e.currentTarget);
+					$('.dndwrapper').removeClass('dropping');
+					var transferedData = e.originalEvent.dataTransfer.getData('Text');
+					if (transferedData) {
+						var trackData = JSON.parse(transferedData);
+
+						if ($target.hasClass('track__items-wrapper')) {
+							this.track.addItem(trackData);
+							$('.track__items').sortable({ items: '.track__item' }).on('sortupdate', _.bind(function() {
+								this.track.updateList();
+							}, this));
+						}
+
+						if ($target.hasClass('track__repeating-item-wrapper')) {
+							this.track.setRepeatingItem(trackData);
+						}
 
 						e.preventDefault();
 						e.stopPropagation();
@@ -307,13 +331,15 @@
 
 	var Track = function(data) {
 		this.data = _.extend({}, data);
+		this.items = [];
+		this.repeatingItem = null;
 		this.templates = {
 			item: _.template( $('#track-item-tpl').html() ),
 			track: _.template( $('#track-tpl').html() )
 		};
 		this.$el = $(document.createElement('div')).append(this.templates.track(this.data)).children();
 
-		this.$el.on('click', '.track__play-button', _.bind(this.play, this));
+		this.$el.on('click', '.track__playpause-button', _.bind(this.toggle, this));
 		this.$el.on('click', '.track__reset-button', _.bind(this.empty, this));
 	};
 
@@ -324,6 +350,14 @@
 			this.$el.find('.track__buttons-wrapper').removeClass('hidden');
 
 			this.updateList();
+		},
+
+		setRepeatingItem: function(data) {
+			if (data !== null) {
+				var $item = $(document.createElement('div')).append(this.templates.item(data)).children();
+				this.$el.find('.track__repeating-item').html($item);
+			}
+			this.repeatingItem = data;
 		},
 
 		updateList: function() {
@@ -340,14 +374,39 @@
 			}, this));
 		},
 
+		toggle: function() {
+			var $el = this.$el.find('.track__playpause-button');
+			if (this.playing) {
+				this.pause();
+				$el.text('Lecture');
+			} else {
+				this.play();
+				$el.text('Stop');
+			}
+		},
+
 		play: function() {
+			this.playing = true;
 			AudioUtils.batchPlay( _(this.items).pluck('element') );
+			if (this.repeatingItem) {
+				if (this.repeatingItem.element) AudioUtils.unloop(this.repeatingItem.element);
+				var el = AudioUtils.element(this.repeatingItem.file);
+				this.repeatingItem.element = el;
+				AudioUtils.loop(el);
+			}
+		},
+
+		pause: function() {
+			this.playing = false;
+			if (this.repeatingItem && this.repeatingItem.element) AudioUtils.unloop(this.repeatingItem.element);
+			AudioUtils.stopCurrentBatchPlay();
 		},
 
 		empty: function() {
 			this.$el.find('.track__item').remove();
 			this.$el.find('.track__buttons-wrapper').addClass('hidden');
 			this.updateList();
+			this.setRepeatingItem(null);
 		}
 	};
 

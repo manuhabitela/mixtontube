@@ -1,4 +1,4 @@
-%tooltip {
+%no-arrow-tooltip {
   border-radius: 3px;
   white-space: nowrap;
   font-size: large;
@@ -6,10 +6,14 @@
   background: whiteSmoke;
   border: 2px solid #354275;
   padding: 3px 6px;
-  box-shadow: 0 0 10px #333;
+  box-shadow: 0 0 5px #888;
   z-index: 100;
   position: absolute;
   bottom: -45px;
+}
+
+%tooltip {
+  @extend %no-arrow-tooltip;
   &:after, &:before {
     bottom: 100%;
     border: solid transparent;

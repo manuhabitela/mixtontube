@@ -128,20 +128,13 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 
 .item__sound-title {
 	@extend %tooltip;
-	position: absolute;
-	bottom: -45px;
 	display: none;
 	.item__sound:hover & {
 		display: block;
 	}
 }
 
-.track {
-	display: table;
-	width: 100%;
-}
-
-.track__items-wrapper {
+.dndwrapper {
 	border: 1px dashed transparent;
 	&.droppable, &.dropping {
 		border-color: gray;
@@ -152,6 +145,41 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	&.dropping {
 		background: rgba(#000, 0.2);
 	}
+}
+
+.track {
+	display: table;
+	width: 100%;
+}
+
+.track__all-items-wrapper {
+
+}
+
+.track__repeating-item-wrapper {
+	float: left;
+	margin-left: 10px;
+	width: 90px;
+	position: relative;
+}
+
+.track__repeating-item {
+	background: rgba(#354275, 0.2);
+	height: 50px;
+}
+
+.track__repeating-item-tooltip {
+	@extend %no-arrow-tooltip;
+	bottom: auto;
+	top: -40px;
+	display: none;
+	.track__repeating-item:hover + & {
+		display: block;
+	}
+}
+
+.track__items-wrapper {
+	margin-left: 110px;
 }
 
 .track__items {
@@ -169,15 +197,6 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 		content: ' ';
 		display: block;
 		z-index: 10;
-	}
-}
-
-.track__buttons-wrapper {
-	text-align: center;
-	margin: 6px 0;
-	button {
-		display: inline-block;
-		color: #222;
 	}
 }
 
@@ -209,6 +228,17 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 		display: block;
 	}
 }
+
+.track__buttons-wrapper {
+	text-align: center;
+	margin: 6px 0;
+	button {
+		display: inline-block;
+		color: #222;
+	}
+}
+
+
 
 .lightbox {
 	position: fixed;

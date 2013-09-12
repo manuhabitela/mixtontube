@@ -138,7 +138,8 @@ textarea { overflow: auto; /* 1 */ vertical-align: top; /* 2 */ }
 /* Remove most spacing between table cells */
 table { border-collapse: collapse; border-spacing: 0; }
 
-.item__sound-title, .track__item-title { border-radius: 3px; white-space: nowrap; font-size: large; color: #354275; background: whiteSmoke; border: 2px solid #354275; padding: 3px 6px; box-shadow: 0 0 10px #333; z-index: 100; position: absolute; bottom: -45px; }
+.item__sound-title, .track__item-title, .track__repeating-item-tooltip { border-radius: 3px; white-space: nowrap; font-size: large; color: #354275; background: whiteSmoke; border: 2px solid #354275; padding: 3px 6px; box-shadow: 0 0 5px #888; z-index: 100; position: absolute; bottom: -45px; }
+
 .item__sound-title:after, .track__item-title:after, .item__sound-title:before, .track__item-title:before { bottom: 100%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }
 .item__sound-title:after, .track__item-title:after { border-color: rgba(119, 119, 119, 0); border-bottom-color: whiteSmoke; border-width: 10px; left: 19px; margin-left: -14px; }
 .item__sound-title:before, .track__item-title:before { border-color: rgba(68, 68, 68, 0); border-bottom-color: #354275; border-width: 12px; left: 19px; margin-left: -16px; }
@@ -214,21 +215,27 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 
 .item__sound-checkbox { margin: 6px 0 3px; }
 
-.item__sound-title { position: absolute; bottom: -45px; display: none; }
+.item__sound-title { display: none; }
 .item__sound:hover .item__sound-title { display: block; }
+
+.dndwrapper { border: 1px dashed transparent; }
+.dndwrapper.droppable, .dndwrapper.dropping { border-color: gray; }
+.dndwrapper.droppable { background: rgba(0, 0, 0, 0.1); }
+.dndwrapper.dropping { background: rgba(0, 0, 0, 0.2); }
 
 .track { display: table; width: 100%; }
 
-.track__items-wrapper { border: 1px dashed transparent; }
-.track__items-wrapper.droppable, .track__items-wrapper.dropping { border-color: gray; }
-.track__items-wrapper.droppable { background: rgba(0, 0, 0, 0.1); }
-.track__items-wrapper.dropping { background: rgba(0, 0, 0, 0.2); }
+.track__repeating-item-wrapper { float: left; margin-left: 10px; width: 90px; position: relative; }
+
+.track__repeating-item { background: rgba(53, 66, 117, 0.2); height: 50px; }
+
+.track__repeating-item-tooltip { bottom: auto; top: -40px; display: none; }
+.track__repeating-item:hover + .track__repeating-item-tooltip { display: block; }
+
+.track__items-wrapper { margin-left: 110px; }
 
 .track__items { height: 50px; background: rgba(53, 66, 117, 0.2); position: relative; text-align: left; }
 .track__items:after { position: absolute; top: 25px; left: 0; right: 0; height: 0; border-top: 1px solid rgba(53, 66, 117, 0.3); content: ' '; display: block; z-index: 10; }
-
-.track__buttons-wrapper { text-align: center; margin: 6px 0; }
-.track__buttons-wrapper button { display: inline-block; color: #222; }
 
 .track__item, .track__items .sortable-placeholder { display: inline-block; margin-right: 10px; background: rgba(0, 0, 0, 0.8); min-width: 50px; height: 50px; position: relative; z-index: 20; }
 
@@ -238,6 +245,9 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 
 .track__item-title { display: none; }
 .track__item:hover .track__item-title { display: block; }
+
+.track__buttons-wrapper { text-align: center; margin: 6px 0; }
+.track__buttons-wrapper button { display: inline-block; color: #222; }
 
 .lightbox { position: fixed; width: 0; height: 0; overflow: hidden; left: 0; top: 0; z-index: 99; text-align: center; background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, rgba(0, 0, 0, 0.9)), color-stop(100%, rgba(34, 34, 34, 0.9))); background: -webkit-radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); background: -moz-radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); background: -o-radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); background: radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); }
 .lightbox.active { padding: 30px 0 0; width: auto; height: auto; bottom: 0; right: 0; }

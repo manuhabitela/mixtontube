@@ -58,11 +58,18 @@
 		</script>
 		<script type="text/template" id="track-tpl">
 			<div class="track">
-				<div class="track__items-wrapper">
-					<div class="track__items"></div>
+				<div class="track__all-items-wrapper">
+					<div class="track__repeating-item-wrapper dndwrapper clearfix">
+						<div class="track__repeating-item">
+						</div>
+						<div class="track__repeating-item-tooltip">Dépose un élément ici pour qu'il soit joué en boucle tout le long de la piste</div>
+					</div>
+					<div class="track__items-wrapper dndwrapper">
+						<div class="track__items"></div>
+					</div>
 				</div>
 				<div class="track__buttons-wrapper">
-					<button type="button" class="track__play-button">Lire</button>
+					<button type="button" class="track__playpause-button">Lire</button>
 					<button type="button" class="track__reset-button">Réinitialiser</button>
 					<button type="button" class="track__share-button">Partager</button>
 				</div>
