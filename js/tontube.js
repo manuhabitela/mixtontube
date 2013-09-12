@@ -119,41 +119,69 @@
 		},
 
 		initDragAndDropEvents: function() {
-			$('.item__sound-button-container').attr('draggable', true);
-			$('.item__sound-button-container').on('dragstart', function(e) {
-				e.originalEvent.dataTransfer.effectAllowed = 'copy';
+			$('.item__sound-button-container')
+				.attr('draggable', true)
+				.on('dragstart', function(e) {
+					e.originalEvent.dataTransfer.effectAllowed = 'copy';
 
-				var $sound = $(this).closest('.item__sound');
-				var trackData = {
-					file: $sound.attr('data-file'),
-					title: $sound.attr('data-title'),
-					img: $sound.closest('.item').attr('data-img')
-				};
-				e.originalEvent.dataTransfer.setData('Text', JSON.stringify(trackData));
-			});
+					var $sound = $(this).closest('.item__sound');
+					var trackData = {
+						file: $sound.attr('data-file'),
+						title: $sound.attr('data-title'),
+						img: $sound.closest('.item').attr('data-img')
+					};
+					e.originalEvent.dataTransfer.setData('Text', JSON.stringify(trackData));
 
-			$('.track__items-wrapper').on('drop', _.bind(function(e) {
-				var transferedData = e.originalEvent.dataTransfer.getData('Text');
-				if (transferedData) {
-					var trackData = JSON.parse(transferedData);
-					this.track.addItem(trackData);
+					$('.track__items-wrapper').addClass('droppable');
+				})
+				.on('dragend', function(e) {
+					$('.track__items-wrapper').removeClass('droppable');
+				});
 
-					$('.track__items').sortable({ items: '.track__item' }).on('sortupdate', _.bind(function() {
-						this.track.updateList();
-					}, this));
 
+
+			$('.track__items-wrapper')
+				.on('dragenter', function(e) {
+					$(this).addClass('dropping');
+					return false;
+				})
+				.on('dragleave', function(e) {
+					$(this).removeClass('dropping');
+					return false;
+				})
+				.on('dragover', function(e) {
+					$(this).addClass('dropping');
 					e.preventDefault();
-					e.stopPropagation();
-				}
-			}, this));
+					e.originalEvent.dataTransfer.dropEffect = 'copy';
+					return false;
+				})
+				.on('drop', _.bind(function(e) {
+					$(e.currentTarget).removeClass('dropping');
+					var transferedData = e.originalEvent.dataTransfer.getData('Text');
+					if (transferedData) {
+						var trackData = JSON.parse(transferedData);
+						this.track.addItem(trackData);
 
-			$('.track__items-wrapper').on('dragover', function(e) {
-				e.preventDefault();
-				e.originalEvent.dataTransfer.dropEffect = 'copy';
-				return false;
-			});
+						$('.track__items').sortable({ items: '.track__item' }).on('sortupdate', _.bind(function() {
+							this.track.updateList();
+						}, this));
 
-			$('.track__items-wrapper').on('dragenter', function(e) { return false; });
+						e.preventDefault();
+						e.stopPropagation();
+					}
+				}, this))
+				//alors, c'est p'tete foireux mais ça a l'air de fonctionner pas trop mal : si on drop un élément de la piste
+				//sur un truc qui n'est pas fait pour ça (autrement dit, n'importe où autre part que sur la piste),
+				//on supprime l'élément de la piste
+				.on('dragend', '.track__item', _.bind(function(e) {
+					if (e.originalEvent.dataTransfer.dropEffect === 'none') {
+						$(e.currentTarget).remove();
+						this.track.updateList();
+
+						e.preventDefault();
+						e.stopPropagation();
+					}
+				}, this));
 		}
 	};
 

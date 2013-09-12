@@ -142,6 +142,16 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 }
 
 .track__items-wrapper {
+	border: 1px dashed transparent;
+	&.droppable, &.dropping {
+		border-color: gray;
+	}
+	&.droppable {
+		background: rgba(#000, 0.1);
+	}
+	&.dropping {
+		background: rgba(#000, 0.2);
+	}
 }
 
 .track__items {
@@ -171,7 +181,8 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	}
 }
 
-.track__item {
+.track__item,
+.track__items .sortable-placeholder {
 	display: inline-block;
 	margin-right: 10px;
 	background: rgba(black, 0.8);
@@ -179,6 +190,12 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	height: 50px;
 	position: relative;
 	z-index: 20;
+}
+
+.track__items .sortable-placeholder {
+	width: 90px;
+	background: rgba(black, 0.2);
+	border: 1px dashed rgba(black, 0.4);
 }
 
 .track__item-img {
