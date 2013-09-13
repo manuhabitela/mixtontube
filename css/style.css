@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@import url(http://fonts.googleapis.com/css?family=Oswald);
 /* normalize.css 2012-03-11T12:53 UTC - http://github.com/necolas/normalize.css */
 /* Addresses styling for 'hidden' attribute not present in IE7/8/9, FF3, S4 Known issue: no IE6 support */
 [hidden] { display: none; }
@@ -53,7 +53,7 @@ mark { background: #ff0; color: #000; }
 p, pre { margin: 1em 0; }
 
 /* Corrects font family set oddly in IE6, S4/5, Chrome en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
-pre, code, kbd, samp { font-family: monospace, serif; _font-family: 'courier new', monospace; font-size: 1em; }
+pre, code, kbd, samp { font-family: monospace, serif; _font-family: 'courier new', monospace; font-size: 0.9em; }
 
 /* Improves readability of pre-formatted text in all browsers */
 pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
@@ -138,6 +138,12 @@ textarea { overflow: auto; /* 1 */ vertical-align: top; /* 2 */ }
 /* Remove most spacing between table cells */
 table { border-collapse: collapse; border-spacing: 0; }
 
+.item__sound-title, .track__item-title, .track__repeating-item-tooltip { border-radius: 3px; white-space: nowrap; font-size: large; color: #354275; background: whiteSmoke; border: 2px solid #354275; padding: 3px 6px; box-shadow: 0 0 5px #888; z-index: 100; position: absolute; bottom: -45px; }
+
+.item__sound-title:after, .track__item-title:after, .item__sound-title:before, .track__item-title:before { bottom: 100%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }
+.item__sound-title:after, .track__item-title:after { border-color: rgba(119, 119, 119, 0); border-bottom-color: whiteSmoke; border-width: 10px; left: 19px; margin-left: -14px; }
+.item__sound-title:before, .track__item-title:before { border-color: rgba(68, 68, 68, 0); border-bottom-color: #354275; border-width: 12px; left: 19px; margin-left: -16px; }
+
 .rght { float: right; }
 
 .lft { float: left; }
@@ -158,8 +164,8 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 .ok { color: green; }
 
-.ir, .piano-key-repeat, .piano-key-video { background-color: transparent; border: 0; overflow: hidden; *text-indent: -9999px; }
-.ir:before, .piano-key-repeat:before, .piano-key-video:before { content: ""; display: block; width: 0; height: 100%; }
+.ir, .item__sound-button { background-color: transparent; border: 0; overflow: hidden; *text-indent: -9999px; }
+.ir:before, .item__sound-button:before { content: ""; display: block; width: 0; height: 100%; }
 
 .hidden, .mobile-only { display: none !important; visibility: hidden; }
 
@@ -168,68 +174,98 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 .invisible { visibility: hidden; }
 
-.clearfix:before, .piano:before, .clearfix:after, .piano:after { content: " "; display: table; }
-.clearfix:after, .piano:after { clear: both; }
-.clearfix, .piano { *zoom: 1; }
+.clearfix:before, .clearfix:after { content: " "; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
 
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
-body, button, select, input, textarea, label { color: #222; font-family: Arial, Helvetica, sans-serif; }
+*[draggable=true] { -moz-user-select: none; -khtml-user-drag: element; user-select: none; }
+
+body, button, select, input, textarea, label { color: #354275; font-family: Arial, Helvetica, sans-serif; }
+
+body { background: #D2DDDD; background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #eff3f3), color-stop(100%, #b5c7c7)); background: -webkit-radial-gradient(#eff3f3, #b5c7c7); background: -moz-radial-gradient(#eff3f3, #b5c7c7); background: -o-radial-gradient(#eff3f3, #b5c7c7); background: radial-gradient(#eff3f3, #b5c7c7); }
 
 h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: normal; }
 
-body { background: #2f2f2f url(http://subtlepatterns.com/patterns/dark_leather.png) repeat top left; }
-
 #container { text-align: center; }
 
-.piano-wrapper { color: #aaa; }
+.title-container h1, .title-container h2 { display: inline-block; margin-right: 10px; }
 
-/** quelques trucs piochés du piano de Taufik Nurrohman http://hompimpaalaihumgambreng.blogspot.com/ - big up à sa famille */
-.piano { padding: 1px 1px 5px; display: inline-block; }
+.title { color: #333; font-family: Oswald, Arial, Helvetica, sans-serif; text-shadow: 0 1px 1px white; }
 
-.piano-key-wrapper.pressed .piano-key:before, .piano-key-wrapper.pressed .piano-key:after { content: ""; width: 0px; height: 0px; border-width: 200px 5px 0px; border-style: solid; position: absolute; top: 0px; }
+.subtitle { font-size: 1em; }
 
-.piano-key-wrapper:nth-child(4n+1):not(:last-of-type):after, .piano-key-wrapper:nth-child(4n+2):not(:last-of-type):after, .piano-key-wrapper:nth-child(4n+3):not(:last-of-type):after { content: ' '; display: block; width: 20px; height: 110.0px; background: black; top: -1px; position: absolute; right: -10px; z-index: 10; border-style: solid; border-width: 1px 2px 5px; background-color: #666 #222 #111 #555; background: -webkit-linear-gradient(-20deg, #333333, #000000, #333333); background: -moz-linear-gradient(-20deg, #333333, #000000, #333333); background: -o-linear-gradient(-20deg, #333333, #000000, #333333); background: linear-gradient(-20deg, #333333, #000000, #333333); border-radius: 0 0 2px 2px; box-shadow: inset 0px -1px 2px rgba(255, 255, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.4); color: black; pointer-events: none; }
+.tube { color: whiteSmoke; text-shadow: 0 1px 1px #222; padding: 0 6px; border-radius: 15%/50%; background: #354275; background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(25px, #455698), color-stop(100%, #252e52)); background: -webkit-linear-gradient(#455698 25px, #252e52); background: -moz-linear-gradient(#455698 25px, #252e52); background: -o-linear-gradient(#455698 25px, #252e52); background: linear-gradient(#455698 25px, #252e52); }
 
-.piano-key-wrapper { float: left; text-align: center; position: relative; width: 50px; margin-top: 130px; }
-.piano-key-wrapper.pressed .piano-key { box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4); }
-.piano-key-wrapper.pressed .piano-key:before { left: 0px; border-color: transparent transparent transparent rgba(0, 0, 0, 0.1); }
-.piano-key-wrapper.pressed .piano-key:after { right: 0px; border-color: transparent rgba(0, 0, 0, 0.1) transparent transparent; }
-.piano-key-wrapper.pressed-hard .piano-key-repeat { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #f8e32e), color-stop(100%, #d5d193)); background: -webkit-radial-gradient(#f8e32e, #d5d193); background: -moz-radial-gradient(#f8e32e, #d5d193); background: -o-radial-gradient(#f8e32e, #d5d193); background: radial-gradient(#f8e32e, #d5d193); }
-.piano-key-wrapper:hover .piano-key-legend { text-shadow: 0 0 1px white, 0 0 2px white, 0 0 3px white; color: white; }
-@media screen and (min-width: 640px) { .piano-key-wrapper:nth-child(10n) { clear: right; }
-  .piano-key-wrapper:nth-child(10n):after { width: 0 !important; height: 0 !important; border: 0 !important; } }
+.items-container { text-align: center; padding: 0 20px; }
 
-.piano-key-legend { position: absolute; top: -30px; left: 18px; display: block; -webkit-transform: rotate(-25deg); -moz-transform: rotate(-25deg); -ms-transform: rotate(-25deg); -o-transform: rotate(-25deg); transform: rotate(-25deg); -webkit-transform-origin: left bottom; -moz-transform-origin: left bottom; -ms-transform-origin: left bottom; -o-transform-origin: left bottom; transform-origin: left bottom; cursor: pointer; white-space: nowrap; font-size: large; color: whiteSmoke; text-shadow: 0 1px 1px black; }
+.item { display: inline-block; text-align: center; margin: 0 5px 15px; position: relative; background: rgba(37, 46, 82, 0.4); border: 1px solid rgba(37, 46, 82, 0.2); box-shadow: 0px 2px 10px #aaa; border-radius: 3px; padding: 3px; color: white; }
 
-.piano-key { display: block; position: relative; height: 200px; background: -webkit-linear-gradient(-30deg, #f5f5f5, #ffffff); background: -moz-linear-gradient(-30deg, #f5f5f5, #ffffff); background: -o-linear-gradient(-30deg, #f5f5f5, #ffffff); background: linear-gradient(-30deg, #f5f5f5, #ffffff); border: 1px solid #ccc; margin: 0; box-shadow: inset 0 1px 0px white, inset 0 -1px 0px white, inset 1px 0px 0px white, inset -1px 0px 0px white, 0 4px 3px rgba(0, 0, 0, 0.7); border-radius: 0 0 3px 3px; cursor: pointer; }
-.piano-key:hover, .piano-key:focus { background: -webkit-linear-gradient(-30deg, #f5f5f5, #ededed); background: -moz-linear-gradient(-30deg, #f5f5f5, #ededed); background: -o-linear-gradient(-30deg, #f5f5f5, #ededed); background: linear-gradient(-30deg, #f5f5f5, #ededed); }
+.item__video-link { width: 150px; height: 113px; overflow: hidden; display: block; margin: 0 auto 6px; position: relative; }
 
-.piano-key-repeat { cursor: pointer; display: block; margin: 15px auto; background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #f1f1f1), color-stop(100%, #bbbbbb)); background: -webkit-radial-gradient(#f1f1f1, #bbbbbb); background: -moz-radial-gradient(#f1f1f1, #bbbbbb); background: -o-radial-gradient(#f1f1f1, #bbbbbb); background: radial-gradient(#f1f1f1, #bbbbbb); width: 40px; height: 40px; border-radius: 3px; }
-.piano-key-repeat:hover, .piano-key-repeat:focus { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #ffffff), color-stop(100%, #bbbbbb)); background: -webkit-radial-gradient(#ffffff, #bbbbbb); background: -moz-radial-gradient(#ffffff, #bbbbbb); background: -o-radial-gradient(#ffffff, #bbbbbb); background: radial-gradient(#ffffff, #bbbbbb); }
-.piano-key-repeat:active { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #e1e1d1), color-stop(100%, #bbbbbb)); background: -webkit-radial-gradient(#e1e1d1, #bbbbbb); background: -moz-radial-gradient(#e1e1d1, #bbbbbb); background: -o-radial-gradient(#e1e1d1, #bbbbbb); background: radial-gradient(#e1e1d1, #bbbbbb); }
+.item__img { width: 150px; position: absolute; top: 0; bottom: 0; right: 0; left: 0; margin: auto; border-radius: 3px 3px 0 0; }
 
-.piano-key-keyboard-shortcut { position: absolute; line-height: 20px; top: 175px; left: 0; right: 0; width: 50px; color: #888; text-align: center; text-transform: capitalize; border: none; pointer-events: none; }
-.piano-key-keyboard-shortcut:disabled { background: transparent; }
+.item__sound { display: inline-block; position: relative; }
 
-.piano-key-video { display: inline-block; background: url('../img/video.svg?1358414814') no-repeat center center; -webkit-background-size: 25px 25px; -moz-background-size: 25px 25px; -o-background-size: 25px 25px; background-size: 25px 25px; width: 25px; height: 25px; opacity: 0.5; }
-.piano-key-video:hover, .piano-key-video:focus { opacity: 1; }
+.item__sound-button { cursor: pointer; display: block; background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 25, color-stop(0%, #f1f1f1), color-stop(100%, #cccccc)); background: -webkit-radial-gradient(#f1f1f1, #cccccc 25px); background: -moz-radial-gradient(#f1f1f1, #cccccc 25px); background: -o-radial-gradient(#f1f1f1, #cccccc 25px); background: radial-gradient(#f1f1f1, #cccccc 25px); border: 1px solid #bbb; width: 35px; height: 35px; border-radius: 3px; }
+.item__sound-button:hover, .item__sound-button:focus { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 25, color-stop(0%, #ffffff), color-stop(100%, #bbbbbb)); background: -webkit-radial-gradient(#ffffff, #bbbbbb 25px); background: -moz-radial-gradient(#ffffff, #bbbbbb 25px); background: -o-radial-gradient(#ffffff, #bbbbbb 25px); background: radial-gradient(#ffffff, #bbbbbb 25px); }
+.item__sound-button:active, .item__sound-button.active, .item__sound.active .item__sound-button { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 25, color-stop(0%, #e1e1d1), color-stop(100%, #bbbbbb)); background: -webkit-radial-gradient(#e1e1d1, #bbbbbb 25px); background: -moz-radial-gradient(#e1e1d1, #bbbbbb 25px); background: -o-radial-gradient(#e1e1d1, #bbbbbb 25px); background: radial-gradient(#e1e1d1, #bbbbbb 25px); }
+.item__sound.looping .item__sound-button { background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 20, color-stop(0%, #f8e32e), color-stop(100%, #d5d193)); background: -webkit-radial-gradient(#f8e32e, #d5d193 20px); background: -moz-radial-gradient(#f8e32e, #d5d193 20px); background: -o-radial-gradient(#f8e32e, #d5d193 20px); background: radial-gradient(#f8e32e, #d5d193 20px); }
 
-.piano-lightbox { position: fixed; width: 0; height: 0; overflow: hidden; left: 0; top: 0; z-index: 99; text-align: center; background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, rgba(255, 255, 255, 0.8)), color-stop(100%, rgba(187, 187, 187, 0.8))); background: -webkit-radial-gradient(rgba(255, 255, 255, 0.8), rgba(187, 187, 187, 0.8)); background: -moz-radial-gradient(rgba(255, 255, 255, 0.8), rgba(187, 187, 187, 0.8)); background: -o-radial-gradient(rgba(255, 255, 255, 0.8), rgba(187, 187, 187, 0.8)); background: radial-gradient(rgba(255, 255, 255, 0.8), rgba(187, 187, 187, 0.8)); }
-.piano-lightbox.active { padding: 30px 0 0; width: auto; height: auto; bottom: 0; right: 0; }
-.piano-lightbox > div { margin: 0 auto; }
+.item__sound-checkbox { margin: 6px 0 3px; }
 
-.piano-lightbox-video-html iframe { box-shadow: 0px 2px 15px black; }
+.item__sound-title { display: none; }
+.item__sound:hover .item__sound-title { display: block; }
 
-.piano-lightbox-video p { margin: 0; }
+.dndwrapper { border: 1px dashed transparent; }
+.dndwrapper.droppable, .dndwrapper.dropping { border-color: gray; }
+.dndwrapper.droppable { background: rgba(0, 0, 0, 0.1); }
+.dndwrapper.dropping { background: rgba(0, 0, 0, 0.2); }
 
-.piano-lightbox-video-url { display: inline-block; padding: 20px 100px; color: #222; }
+.track { display: table; width: 100%; }
+
+.track__repeating-item-wrapper { float: left; margin-left: 10px; width: 90px; position: relative; }
+
+.track__repeating-item { background: rgba(53, 66, 117, 0.2); height: 50px; }
+
+.track__repeating-item-tooltip { bottom: auto; top: -40px; display: none; }
+.track__repeating-item:hover + .track__repeating-item-tooltip { display: block; }
+
+.track__items-wrapper { margin-left: 110px; }
+
+.track__items { height: 50px; background: rgba(53, 66, 117, 0.2); position: relative; text-align: left; }
+.track__items:after { position: absolute; top: 25px; left: 0; right: 0; height: 0; border-top: 1px solid rgba(53, 66, 117, 0.3); content: ' '; display: block; z-index: 10; }
+
+.track__item, .track__items .sortable-placeholder { display: inline-block; margin-right: 10px; background: rgba(0, 0, 0, 0.8); min-width: 50px; height: 50px; position: relative; z-index: 20; }
+
+.track__items .sortable-placeholder { width: 90px; background: rgba(0, 0, 0, 0.2); border: 1px dashed rgba(0, 0, 0, 0.4); }
+
+.track__item-img { height: 100%; }
+
+.track__item-title { display: none; }
+.track__item:hover .track__item-title { display: block; }
+
+.track__buttons-wrapper { text-align: center; margin: 6px 0; }
+.track__buttons-wrapper button { display: inline-block; color: #222; }
+
+.lightbox { position: fixed; width: 0; height: 0; overflow: hidden; left: 0; top: 0; z-index: 99; text-align: center; background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, rgba(0, 0, 0, 0.9)), color-stop(100%, rgba(34, 34, 34, 0.9))); background: -webkit-radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); background: -moz-radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); background: -o-radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); background: radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); }
+.lightbox.active { padding: 30px 0 0; width: auto; height: auto; bottom: 0; right: 0; }
+.lightbox > div { margin: 0 auto; }
+
+.lightbox__video-html iframe { box-shadow: 0px 2px 15px black; }
+
+.lightbox__video p { margin: 0; }
+
+.lightbox__video-url { display: inline-block; padding: 20px 100px; color: #ccc; }
+
+.info { color: #354275; }
 
 @media print { * { background: transparent !important; color: black !important; box-shadow: none !important; text-shadow: none !important; }
   a, a:visited { text-decoration: underline; }
   a[href]:after { content: " (" attr(href) ")"; }
   abbr[title]:after { content: " (" attr(title) ")"; }
-  .ir a:after, .piano-key-repeat a:after, .piano-key-video a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  .ir a:after, .item__sound-button a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
   pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
   thead { display: table-header-group; }
   tr, img { page-break-inside: avoid; }
