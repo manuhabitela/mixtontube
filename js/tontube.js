@@ -31,19 +31,27 @@
 
 	var AudioUtils = {
 		element: function(file) {
+			if (!file) return false;
 			var audio = document.createElement('audio');
+			$(audio).attr('data-file', file);
+			AudioUtils.elementSrcs(audio, file);
+			return audio;
+		},
+
+		elementSrcs: function(element, file) {
+			$(element).find('source').remove();
 			var ext = ['mp3', 'ogg'];
 			for (var i = ext.length - 1; i >= 0; i--) {
 				var source = document.createElement('source');
-				source.src = file + '.' + ext[i];
-				audio.appendChild(source);
+				source.src = 'tracks/' + file + '.' + ext[i];
+				element.appendChild(source);
 			}
-			return audio;
+			return element;
 		},
 
 		loop: function(element) {
 			element.loop = true;
-			$(element).on("ended.utils", function() {
+			$(element).on("ended.utils.loop", function() {
 				this.currentTime = 0;
 				this.play();
 			});
@@ -56,17 +64,24 @@
 			element.pause();
 		},
 
-		batchPlay: function(elements, position) {
+		batchPlay: function(files, position, onEndCallback) {
 			if (typeof position === "undefined") position = 0;
-			currentElement = elements[position];
+			if (_(position).isFunction() && typeof onEndCallback === "undefined") {
+				onEndCallback = position;
+				position = 0;
+			}
+			currentElement = AudioUtils.element(files[position]);
 			if (currentElement) {
 				AudioUtils.currentBatchElementPlaying = currentElement; //j'aime les noms de variable à rallonge
 				$(currentElement).on("ended.utils.batch", function() {
-					AudioUtils.batchPlay(elements, position+1);
+					AudioUtils.batchPlay(files, position+1, onEndCallback);
 				});
 				currentElement.play();
-			} else
+			} else {
 				AudioUtils.currentBatchElementPlaying = null;
+				if (_(onEndCallback).isFunction())
+					onEndCallback.call(this);
+			}
 		},
 
 		stopCurrentBatchPlay: function() {
@@ -74,6 +89,23 @@
 				$(AudioUtils.currentBatchElementPlaying).off('ended.utils.batch');
 				AudioUtils.currentBatchElementPlaying.pause();
 			}
+		}
+	};
+
+
+
+	var AppUtils = {
+		itemData: function(file) {
+			var $sound = $('.item__sound[data-file="' + file + '"]');
+			var data = null;
+			if ($sound.length) {
+				data = {
+					file: $sound.attr('data-file'),
+					title: $sound.attr('data-title'),
+					img: $sound.closest('.item').attr('data-img')
+				};
+			}
+			return data;
 		}
 	};
 
@@ -230,7 +262,7 @@
 
 		toggle: function(file, el) {
 			if (this.looping[file]) {
-				this.looping[file].pause();
+				AudioUtils.unloop(this.looping[file]);
 				this.looping[file] = false;
 				if (el) {
 					el.removeClass('looping');
@@ -308,7 +340,6 @@
 				var $el = $('.item__sound[data-file="' + sound.file + '"]', that.$el);
 
 				Mousetrap.bind(sound.shortcut, function(e) {
-					console.log(sound.shortcut);
 					that.play(sound.file);
 					$el.addClass('active');
 				}, 'keydown');
@@ -333,6 +364,7 @@
 		this.data = _.extend({}, data);
 		this.items = [];
 		this.repeatingItem = null;
+		this.hash = '';
 		this.templates = {
 			item: _.template( $('#track-item-tpl').html() ),
 			track: _.template( $('#track-tpl').html() )
@@ -341,28 +373,38 @@
 
 		this.$el.on('click', '.track__playpause-button', _.bind(this.toggle, this));
 		this.$el.on('click', '.track__reset-button', _.bind(this.empty, this));
+
+		this.updateItemsFromURL();
 	};
 
 	Track.prototype = {
-		addItem: function(data) {
+		addItem: function(data, opts) {
+			opts = _.extend({}, { updateURL: true }, opts);
+			if (!data) return false;
 			var $item = $(document.createElement('div')).append(this.templates.item(data)).children();
 			this.$el.find('.track__items').append($item);
 			this.$el.find('.track__buttons-wrapper').removeClass('hidden');
 
-			this.updateList();
+			this.updateList(opts);
 		},
 
-		setRepeatingItem: function(data) {
+		setRepeatingItem: function(data, opts) {
+			opts = _.extend({}, { updateURL: true }, opts);
 			if (data !== null) {
 				var $item = $(document.createElement('div')).append(this.templates.item(data)).children();
 				this.$el.find('.track__repeating-item').html($item);
 			}
 			this.repeatingItem = data;
+
+			if (opts.updateURL)
+				this.updateURL();
 		},
 
-		updateList: function() {
+		updateList: function(opts) {
+			opts = _.extend({}, { updateURL: true }, opts);
+
 			this.items = [];
-			this.$el.find('.track__item').each(_.bind(function(key, item) {
+			this.$el.find('.track__items > .track__item').each(_.bind(function(key, item) {
 				var $item = $(item);
 				var itemData = {
 					file: $item.attr('data-file'),
@@ -372,6 +414,48 @@
 				itemData.element = AudioUtils.element(itemData.file);
 				this.items.push(itemData);
 			}, this));
+
+			if (opts.updateURL)
+				this.updateURL();
+		},
+
+		updateHash: function() {
+			var hash = [];
+			hash.push(_(this.items).pluck('file').join('+'));
+			if (this.repeatingItem)
+				hash.push(this.repeatingItem.file);
+			this.hash = hash.join(';');
+			return this.hash;
+		},
+
+		updateURL: function() {
+			window.location.hash = '#' + this.updateHash();
+		},
+
+		updateItemsFromURL: function() {
+			var hash = window.location.hash.substring(1);
+			var files = null, repeatingItemFile = null;
+			if (hash) {
+				var parts = hash.split(';');
+				if (parts[0]) {
+					var itemsHash = parts[0];
+					files = itemsHash.split('+');
+				}
+				if (parts[1])
+					repeatingItemFile = parts[1];
+			}
+
+			if (files) {
+				_(files).each(function(file) {
+					var data = AppUtils.itemData(file);
+					this.addItem(data, { updateURL: false });
+				}, this);
+			}
+
+			if (repeatingItemFile) {
+				var data = AppUtils.itemData(repeatingItemFile);
+				this.setRepeatingItem(data, { updateURL: false });
+			}
 		},
 
 		toggle: function() {
@@ -387,10 +471,13 @@
 
 		play: function() {
 			this.playing = true;
-			AudioUtils.batchPlay( _(this.items).pluck('element') );
+			AudioUtils.batchPlay( _(this.items).pluck('file'), _.bind(function() {
+				this.toggle();
+			}, this) );
 			if (this.repeatingItem) {
 				if (this.repeatingItem.element) AudioUtils.unloop(this.repeatingItem.element);
 				var el = AudioUtils.element(this.repeatingItem.file);
+				el.volume = 0.7;
 				this.repeatingItem.element = el;
 				AudioUtils.loop(el);
 			}

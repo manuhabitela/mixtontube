@@ -42,7 +42,6 @@ $.fn.sortable = function(options) {
 
 		// Handle drag events on draggable items
 		items.on('dragstart.h5s', function(e) {
-			console.log(e);
 			var dt = e.originalEvent.dataTransfer;
 			dt.effectAllowed = 'move';
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
@@ -60,8 +59,6 @@ $.fn.sortable = function(options) {
 			dragging = null;
 			parent = null;
 		}).add([this, placeholder]).on('dragover.h5s dragenter.h5s drop.h5s', function(e) {
-			console.log(e);
-			
 			if (!items.is(dragging) && options.connectWith !== $(dragging).parent().data('connectWith')) {
 				return true;
 			}
