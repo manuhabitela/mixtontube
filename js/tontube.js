@@ -375,6 +375,9 @@
 		this.$el.on('click', '.track__reset-button', _.bind(this.empty, this));
 
 		this.updateItemsFromURL();
+
+		if (!this.items.length && !this.repeatingItem)
+			this.empty();
 	};
 
 	Track.prototype = {
@@ -383,7 +386,7 @@
 			if (!data) return false;
 			var $item = $(document.createElement('div')).append(this.templates.item(data)).children();
 			this.$el.find('.track__items').append($item);
-			this.$el.find('.track__buttons-wrapper').removeClass('hidden');
+			this.$el.find('.track__buttons-wrapper button').removeAttr('disabled');
 
 			this.updateList(opts);
 		},
@@ -491,7 +494,7 @@
 
 		empty: function() {
 			this.$el.find('.track__item').remove();
-			this.$el.find('.track__buttons-wrapper').addClass('hidden');
+			this.$el.find('.track__buttons-wrapper button').attr('disabled', 'disabled');
 			this.updateList();
 			this.setRepeatingItem(null);
 		}
