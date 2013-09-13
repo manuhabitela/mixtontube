@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 .title-container {
 	h1, h2 {
 		display: inline-block;
-		margin-right: 10px;
+		margin: 0 10px 0 0;
 	}
 }
 
@@ -56,15 +56,21 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	@include background(linear-gradient(lighten(#354275, 10%) 25px, darken(#354275, 10%)));
 }
 
+.title-container,
+.items-container,
+.track-container,
+.info {
+	padding: 10px;
+}
+
 .items-container {
 	text-align: center;
-	padding: 0 20px;
 }
 
 .item {
 	display: inline-block;
 	text-align: center;
-	margin: 0 5px 15px;
+	margin: 0 5px 10px;
 	position: relative;
 	background: rgba(darken(#354275, 10%), 0.4);
 	border: 1px solid rgba(darken(#354275, 10%), 0.2);
@@ -158,7 +164,6 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 
 .track__repeating-item-wrapper {
 	float: left;
-	margin-left: 10px;
 	width: 90px;
 	position: relative;
 }
@@ -179,7 +184,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 }
 
 .track__items-wrapper {
-	margin-left: 110px;
+	margin-left: 100px;
 }
 
 .track__items {
@@ -235,6 +240,9 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 	button {
 		display: inline-block;
 		color: #222;
+		&[disabled] {
+			opacity: 0.5;
+		}
 	}
 }
 
@@ -278,4 +286,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child {
 
 .info {
 	color: #354275;
+	p {
+		margin: 0;
+	}
 }

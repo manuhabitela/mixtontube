@@ -50,7 +50,7 @@ dfn { font-style: italic; }
 mark { background: #ff0; color: #000; }
 
 /* Addresses margins set differently in IE6/7 */
-p, pre { margin: 1em 0; }
+p, pre { margin: 20px 0; }
 
 /* Corrects font family set oddly in IE6, S4/5, Chrome en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
 pre, code, kbd, samp { font-family: monospace, serif; _font-family: 'courier new', monospace; font-size: 0.9em; }
@@ -190,7 +190,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 
 #container { text-align: center; }
 
-.title-container h1, .title-container h2 { display: inline-block; margin-right: 10px; }
+.title-container h1, .title-container h2 { display: inline-block; margin: 0 10px 0 0; }
 
 .title { color: #333; font-family: Oswald, Arial, Helvetica, sans-serif; text-shadow: 0 1px 1px white; }
 
@@ -198,9 +198,11 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 
 .tube { color: whiteSmoke; text-shadow: 0 1px 1px #222; padding: 0 6px; border-radius: 15%/50%; background: #354275; background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(25px, #455698), color-stop(100%, #252e52)); background: -webkit-linear-gradient(#455698 25px, #252e52); background: -moz-linear-gradient(#455698 25px, #252e52); background: -o-linear-gradient(#455698 25px, #252e52); background: linear-gradient(#455698 25px, #252e52); }
 
-.items-container { text-align: center; padding: 0 20px; }
+.title-container, .items-container, .track-container, .info { padding: 10px; }
 
-.item { display: inline-block; text-align: center; margin: 0 5px 15px; position: relative; background: rgba(37, 46, 82, 0.4); border: 1px solid rgba(37, 46, 82, 0.2); box-shadow: 0px 2px 10px #aaa; border-radius: 3px; padding: 3px; color: white; }
+.items-container { text-align: center; }
+
+.item { display: inline-block; text-align: center; margin: 0 5px 10px; position: relative; background: rgba(37, 46, 82, 0.4); border: 1px solid rgba(37, 46, 82, 0.2); box-shadow: 0px 2px 10px #aaa; border-radius: 3px; padding: 3px; color: white; }
 
 .item__video-link { width: 150px; height: 113px; overflow: hidden; display: block; margin: 0 auto 6px; position: relative; }
 
@@ -225,14 +227,14 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 
 .track { display: table; width: 100%; }
 
-.track__repeating-item-wrapper { float: left; margin-left: 10px; width: 90px; position: relative; }
+.track__repeating-item-wrapper { float: left; width: 90px; position: relative; }
 
 .track__repeating-item { background: rgba(53, 66, 117, 0.2); height: 50px; }
 
 .track__repeating-item-tooltip { bottom: auto; top: -40px; display: none; }
 .track__repeating-item:hover + .track__repeating-item-tooltip { display: block; }
 
-.track__items-wrapper { margin-left: 110px; }
+.track__items-wrapper { margin-left: 100px; }
 
 .track__items { height: 50px; background: rgba(53, 66, 117, 0.2); position: relative; text-align: left; }
 .track__items:after { position: absolute; top: 25px; left: 0; right: 0; height: 0; border-top: 1px solid rgba(53, 66, 117, 0.3); content: ' '; display: block; z-index: 10; }
@@ -248,6 +250,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 
 .track__buttons-wrapper { text-align: center; margin: 6px 0; }
 .track__buttons-wrapper button { display: inline-block; color: #222; }
+.track__buttons-wrapper button[disabled] { opacity: 0.5; }
 
 .lightbox { position: fixed; width: 0; height: 0; overflow: hidden; left: 0; top: 0; z-index: 99; text-align: center; background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, rgba(0, 0, 0, 0.9)), color-stop(100%, rgba(34, 34, 34, 0.9))); background: -webkit-radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); background: -moz-radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); background: -o-radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); background: radial-gradient(rgba(0, 0, 0, 0.9), rgba(34, 34, 34, 0.9)); }
 .lightbox.active { padding: 30px 0 0; width: auto; height: auto; bottom: 0; right: 0; }
@@ -260,6 +263,7 @@ h1, h2, h3, h4, h5, h6, fieldset.group > legend:first-child { font-weight: norma
 .lightbox__video-url { display: inline-block; padding: 20px 100px; color: #ccc; }
 
 .info { color: #354275; }
+.info p { margin: 0; }
 
 @media print { * { background: transparent !important; color: black !important; box-shadow: none !important; text-shadow: none !important; }
   a, a:visited { text-decoration: underline; }
