@@ -60,5 +60,8 @@ window.leimidata = {
 		{ "file": "timagineyalesclochards", "title": "T'imagine y'a les clochards et tout" },
 		{ "file": "nancametonnerait", "title": "Nan ça m'étonnerait" },
 		{ "file": "jvoulaisretirerpasmefairetirer", "title": "J'voulais retirer pas me faire tirer !" }
+	],
+	"https://www.youtube.com/watch?v=FVG5CW594wM": [
+		{ "file": "quesepassetil", "title": "Que se passe t'il.avi" }
 	]
 };
